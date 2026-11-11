@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Автосервис — Якутск</title>
+<meta name="description" content="Ремонт и обслуживание автомобилей в Якутске. Диагностика, цены, онлайн-запись.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F5F4; --paper:#FFFFFF; --ink:#1F2A30; --muted:#566570; --line:#D3DBDE;
+  --accent:#E8590C; --accent-dark:#C24A08; --steel:#2E4450;
+  --display:"Rubik","Arial",sans-serif;
+  --body:"Roboto",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.btn{display:inline-block;padding:14px 26px;border-radius:4px;font:inherit;font-weight:700;text-decoration:none;border:2px solid transparent;cursor:pointer}
+.btn-main{background:var(--accent);color:#fff}
+.btn-main:hover{background:var(--accent-dark)}
+.btn-ghost{border-color:#9FB3BD;color:#fff}
+.btn-ghost:hover{border-color:#fff}
+
+/* hero */
+.hero{background:var(--steel);color:#fff;padding:76px 0 72px}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(34px,6vw,60px);line-height:1.08;letter-spacing:-.01em}
+.hero p{margin-top:18px;font-size:19px;color:#C9D6DC;max-width:44ch}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+
+/* work order card */
+.order{background:var(--paper);color:var(--ink);border-radius:6px;padding:24px 26px;box-shadow:0 10px 0 -4px rgba(0,0,0,.18);border-top:6px solid var(--accent)}
+.order h2{font-family:var(--display);font-size:18px;font-weight:700;margin-bottom:14px}
+.order ul{list-style:none}
+.order li{display:flex;gap:10px;align-items:baseline;padding:9px 0;border-bottom:1px dashed var(--line);font-size:16px}
+.order li:last-child{border-bottom:0}
+.order .fill{flex:1}
+.order .price{font-weight:700;white-space:nowrap}
+.order .foot{margin-top:12px;font-size:14px;color:var(--muted)}
+
+section{padding:68px 0}
+h2.title{font-family:var(--display);font-weight:700;font-size:clamp(26px,4vw,38px);line-height:1.15;margin-bottom:12px}
+.lead{color:var(--muted);margin-bottom:28px;max-width:58ch}
+
+/* price groups */
+.groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:24px}
+.group{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:22px 24px}
+.group h3{font-family:var(--display);font-weight:700;font-size:20px;margin-bottom:8px}
+.group ul{list-style:none}
+.group li{display:flex;gap:10px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line)}
+.group li:last-child{border-bottom:0}
+.group .fill{flex:1}
+.group .price{font-weight:700;white-space:nowrap}
+.note{font-size:14px;color:var(--muted);margin-top:18px}
+
+/* steps */
+.steps-sec{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:28px;margin-top:28px;counter-reset:s;list-style:none}
+.steps li{counter-increment:s;padding-top:16px;border-top:4px solid var(--accent)}
+.steps li::before{content:counter(s);font-family:var(--display);font-weight:800;font-size:30px;color:var(--accent);display:block;line-height:1;margin-bottom:8px}
+.steps h3{font-family:var(--display);font-size:18px;font-weight:700;margin-bottom:4px}
+.steps p{color:var(--muted);font-size:15px}
+
+/* trust */
+.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;margin-top:8px}
+.trust h3{font-family:var(--display);font-weight:700;font-size:19px;margin-bottom:6px}
+.trust p{color:var(--muted);font-size:15px}
+
+/* contacts + form */
+.two{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:start}
+.contacts dt{font-weight:700;margin-top:18px}
+.contacts dt:first-child{margin-top:0}
+.contacts dd{color:var(--muted)}
+.contacts a{color:var(--ink);font-weight:500}
+form{display:grid;gap:16px;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:28px}
+label{display:grid;gap:6px;font-weight:500;font-size:15px}
+input,select,textarea{font:inherit;padding:12px 14px;border:1.5px solid var(--line);border-radius:4px;background:#fff;color:var(--ink);width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px rgba(232,89,12,.2)}
+textarea{min-height:90px;resize:vertical}
+.hint{font-size:14px;color:var(--muted)}
+.status{padding:14px 16px;border-radius:4px;font-weight:500;display:none}
+.status.ok{display:block;background:#DDEFE3;color:#1D5B32}
+.status.err{display:block;background:#F6DCDD;color:#8B1D24}
+button[disabled]{opacity:.6;cursor:wait}
+footer{padding:28px 0;color:var(--muted);font-size:14px}
+
+@media (max-width:860px){.hero .wrap,.two{grid-template-columns:1fr;gap:32px}}
+@media (max-width:560px){.hero{padding:48px 0 48px}section{padding:48px 0}form{padding:20px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <h1 id="biz-name"></h1>
+      <p id="biz-tagline"></p>
+      <div class="actions">
+        <a class="btn btn-main" href="#zayavka">Записаться на ремонт</a>
+        <a class="btn btn-ghost" id="wa-link" href="#" target="_blank" rel="noopener">Написать в WhatsApp</a>
+      </div>
+    </div>
+    <aside class="order" aria-label="Популярные услуги">
+      <h2>Популярные работы</h2>
+      <ul id="order-list"></ul>
+      <p class="foot" id="order-foot"></p>
+    </aside>
+  </div>
+</header>
+
+<main>
+  <section id="uslugi">
+    <div class="wrap">
+      <h2 class="title">Услуги и цены</h2>
+      <p class="lead" id="price-lead"></p>
+      <div class="groups" id="groups"></div>
+      <p class="note" id="price-note"></p>
+    </div>
+  </section>
+
+  <section class="steps-sec" id="kak-rabotaem">
+    <div class="wrap">
+      <h2 class="title">Как мы работаем</h2>
+      <ol class="steps" id="steps"></ol>
+    </div>
+  </section>
+
+  <section id="garantii">
+    <div class="wrap">
+      <h2 class="title">Почему к нам возвращаются</h2>
+      <div class="trust" id="trust"></div>
+    </div>
+  </section>
+
+  <section id="zayavka" style="padding-top:0">
+    <div class="wrap two">
+      <div class="contacts">
+        <h2 class="title">Как нас найти</h2>
+        <dl>
+          <dt>Адрес</dt><dd id="c-address"></dd>
+          <dd><a id="c-map" href="#" target="_blank" rel="noopener">Открыть на карте</a></dd>
+          <dt>Часы работы</dt><dd id="c-hours"></dd>
+          <dt>Телефон</dt><dd><a id="c-phone" href="#"></a></dd>
+        </dl>
+      </div>
+      <form id="lead-form" novalidate>
+        <h2 class="title" style="font-size:28px;margin-bottom:0">Запись на сервис</h2>
+        <label>Ваше имя
+          <input name="name" type="text" autocomplete="name" required>
+        </label>
+        <label>Телефон
+          <input name="phone" type="tel" autocomplete="tel" placeholder="+7 ___ ___-__-__" required>
+        </label>
+        <label>Марка, модель и год авто
+          <input name="car" type="text" placeholder="Например, Toyota Camry 2015">
+        </label>
+        <label>Что нужно сделать
+          <select name="service" id="service-select"></select>
+        </label>
+        <label>Когда удобно приехать
+          <input name="when" type="text" placeholder="Например, в субботу утром">
+        </label>
+        <label>Опишите проблему
+          <textarea name="comment" placeholder="Что случилось, какие симптомы"></textarea>
+        </label>
+        <button class="btn btn-main" type="submit" id="submit-btn">Записаться</button>
+        <p class="hint">Мастер свяжется с вами, уточнит детали и подтвердит время.</p>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap" id="footer-text"></div></footer>
+
+<script>
+/* ============================================================
+   НАСТРОЙКИ — меняйте только этот блок под каждого клиента
+   ============================================================ */
+const CONFIG = {
+  name: "Автосервис «Север-Мото»",
+  tagline: "Ремонт и обслуживание легковых авто и внедорожников. Работаем с учётом якутских морозов.",
+  phone: "+7 914 000-00-00",
+  whatsapp: "79140000000",               // цифры с кодом страны, без «+»
+  address: "г. Якутск, ул. Примерная, 1",
+  mapUrl: "https://2gis.ru/yakutsk",
+  hours: "Пн–Сб 09:00–19:00, Вс — выходной",
+
+  // Блок справа в верхней части: 3–5 самых ходовых работ
+  popular: [
+    { name: "Замена масла и фильтра", price: "от 1 500 ₽" },
+    { name: "Компьютерная диагностика", price: "от 1 200 ₽" },
+    { name: "Замена колодок", price: "от 1 800 ₽" },
+    { name: "Шиномонтаж (4 колеса)", price: "от 2 400 ₽" }
+  ],
+  popularFoot: "Окончательную цену назовём после осмотра, до начала работ.",
+
+  priceLead: "Ориентировочные цены на работу без учёта запчастей. Точную стоимость мастер назовёт после диагностики.",
+  groups: [
+    { title: "Диагностика", items: [
+      { name: "Компьютерная диагностика", price: "от 1 200 ₽" },
+      { name: "Диагностика ходовой части", price: "от 800 ₽" },
+      { name: "Проверка перед покупкой", price: "от 3 500 ₽" }
+    ]},
+    { title: "Обслуживание", items: [
+      { name: "Замена масла и фильтра", price: "от 1 500 ₽" },
+      { name: "Замена свечей", price: "от 1 000 ₽" },
+      { name: "Замена жидкостей", price: "от 1 200 ₽" },
+      { name: "Подготовка к зиме", price: "от 2 500 ₽" }
+    ]},
+    { title: "Ремонт", items: [
+      { name: "Замена тормозных колодок", price: "от 1 800 ₽" },
+      { name: "Ремонт подвески", price: "от 2 500 ₽" },
+      { name: "Замена ремня ГРМ", price: "от 6 000 ₽" },
+      { name: "Ремонт стартера и генератора", price: "от 3 000 ₽" }
+    ]},
+    { title: "Шины и колёса", items: [
+      { name: "Шиномонтаж (4 колеса)", price: "от 2 400 ₽" },
+      { name: "Балансировка", price: "от 300 ₽ / колесо" },
+      { name: "Сезонное хранение", price: "по запросу" }
+    ]}
+  ],
+  priceNote: "Это шаблон: цены и список услуг нужно заменить данными вашего сервиса.",
+
+  steps: [
+    { title: "Заявка", text: "Оставьте заявку на сайте или напишите в WhatsApp." },
+    { title: "Осмотр", text: "Мастер осматривает авто и находит причину неисправности." },
+    { title: "Согласование", text: "Называем цену и сроки. Без вашего согласия работы не начинаем." },
+    { title: "Ремонт", text: "Выполняем работы и при необходимости присылаем фото." },
+    { title: "Выдача", text: "Показываем замену, отдаём старые детали и выдаём гарантию." }
+  ],
+
+  trust: [
+    { title: "Гарантия на работы", text: "Срок гарантии указываем в наряд-заказе." },
+    { title: "Понятные цены", text: "Цену называем до начала работ и не меняем её без согласования." },
+    { title: "Опыт зимней эксплуатации", text: "Знаем, что ломается на морозе, и предупредим заранее." }
+  ],
+
+  // Куда отправлять заявки. Вставьте сюда адрес Webhook из n8n (метод POST).
+  // Пока пусто — заявка откроет WhatsApp с готовым текстом.
+  webhookUrl: ""
+};
+/* ============================================================ */
+
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
+const row = (name, price) => { const li = el("li"); li.append(el("span", "", name), el("span", "fill"), el("span", "price", price)); return li; };
+
+document.title = CONFIG.name + " — Якутск";
+$("biz-name").textContent = CONFIG.name;
+$("biz-tagline").textContent = CONFIG.tagline;
+$("wa-link").href = "https://wa.me/" + CONFIG.whatsapp;
+$("order-foot").textContent = CONFIG.popularFoot;
+$("price-lead").textContent = CONFIG.priceLead;
+$("price-note").textContent = CONFIG.priceNote;
+$("c-address").textContent = CONFIG.address;
+$("c-map").href = CONFIG.mapUrl;
+$("c-hours").textContent = CONFIG.hours;
+$("c-phone").textContent = CONFIG.phone;
+$("c-phone").href = "tel:" + CONFIG.phone.replace(/[^\d+]/g, "");
+$("footer-text").textContent = "© " + new Date().getFullYear() + " " + CONFIG.name;
+
+CONFIG.popular.forEach((p) => $("order-list").appendChild(row(p.name, p.price)));
+
+const sel = $("service-select");
+const o0 = el("option", "", "Не знаю, нужна диагностика"); o0.value = "Диагностика"; sel.appendChild(o0);
+CONFIG.groups.forEach((g) => {
+  const box = el("div", "group"); box.appendChild(el("h3", "", g.title));
+  const ul = el("ul");
+  g.items.forEach((i) => {
+    ul.appendChild(row(i.name, i.price));
+    const o = el("option", "", i.name); o.value = i.name; sel.appendChild(o);
+  });
+  box.appendChild(ul); $("groups").appendChild(box);
+});
+const oo = el("option", "", "Другое (опишу в комментарии)"); oo.value = "Другое"; sel.appendChild(oo);
+
+CONFIG.steps.forEach((s) => { const li = el("li"); li.append(el("h3", "", s.title), el("p", "", s.text)); $("steps").appendChild(li); });
+CONFIG.trust.forEach((t) => { const d = el("div"); d.append(el("h3", "", t.title), el("p", "", t.text)); $("trust").appendChild(d); });
+
+// отправка заявки
+const form = $("lead-form"), statusBox = $("status"), btn = $("submit-btn");
+const showStatus = (type, text) => { statusBox.className = "status " + type; statusBox.textContent = text; };
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const fd = new FormData(form);
+  const data = {
+    name: (fd.get("name") || "").trim(), phone: fd.get("phone") || "", car: (fd.get("car") || "").trim(),
+    service: fd.get("service"), when: fd.get("when") || "", comment: fd.get("comment") || "",
+    source: location.href, sentAt: new Date().toISOString()
+  };
+  if (!data.name) { showStatus("err", "Укажите имя."); return; }
+  if (data.phone.replace(/\D/g, "").length < 10) { showStatus("err", "Проверьте номер телефона: нужно минимум 10 цифр."); return; }
+
+  btn.disabled = true;
+  try {
+    if (CONFIG.webhookUrl) {
+      const r = await fetch(CONFIG.webhookUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      form.reset();
+      showStatus("ok", "Заявка отправлена. Мастер свяжется с вами в ближайшее время.");
+    } else {
+      const text = "Здравствуйте! Меня зовут " + data.name + ". Автомобиль: " + (data.car || "не указан") +
+        ". Нужно: " + data.service + (data.when ? ". Удобно: " + data.when : "") +
+        ". Телефон: " + data.phone + (data.comment ? ". " + data.comment : "");
+      window.open("https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(text), "_blank");
+      showStatus("ok", "Открываем WhatsApp, чтобы отправить заявку.");
+    }
+  } catch (err) {
+    showStatus("err", "Не удалось отправить заявку. Позвоните нам: " + CONFIG.phone);
+  } finally { btn.disabled = false; }
+});
+</script>
+</body>
+</html>
