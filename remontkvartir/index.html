@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ремонт квартир — Якутск</title>
+<meta name="description" content="Ремонт квартир под ключ в Якутске. Расчёт стоимости, смета, договор, онлайн-заявка.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4F3F0; --paper:#FFFFFF; --ink:#22282C; --muted:#5E6A70; --line:#D9D8D2;
+  --accent:#1F6F66; --accent-dark:#175750; --sand:#E8E0D0; --dark:#1D2427;
+  --display:"Montserrat","Arial",sans-serif;
+  --body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.6}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.btn{display:inline-block;padding:15px 28px;border-radius:4px;font:inherit;font-weight:700;text-decoration:none;border:2px solid transparent;cursor:pointer}
+.btn-main{background:var(--accent);color:#fff}
+.btn-main:hover{background:var(--accent-dark)}
+.btn-ghost{border-color:#fff;color:#fff}
+.btn-ghost:hover{background:#fff;color:var(--dark)}
+.btn-line{border-color:var(--accent);color:var(--accent);padding:10px 20px;background:transparent}
+.btn-line:hover{background:var(--accent);color:#fff}
+
+/* hero */
+.hero{background:var(--dark);color:#fff;padding:88px 0 72px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:
+  linear-gradient(90deg,transparent 0 calc(100% - 1px),rgba(255,255,255,.07) 0) 0 0/96px 100%,
+  linear-gradient(0deg,transparent 0 calc(100% - 1px),rgba(255,255,255,.07) 0) 0 0/100% 96px}
+.hero .wrap{position:relative;z-index:1}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(34px,6.5vw,64px);line-height:1.08;max-width:16ch}
+.hero p{margin-top:20px;font-size:20px;max-width:46ch;color:#C5D0D3}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.facts{display:flex;flex-wrap:wrap;gap:36px;margin-top:48px}
+.facts b{display:block;font-family:var(--display);font-size:30px;font-weight:700;color:#fff}
+.facts span{color:#A9B7BB;font-size:15px}
+.hero.has-photo::before{display:none}
+
+section{padding:72px 0}
+h2.title{font-family:var(--display);font-weight:700;font-size:clamp(26px,4vw,38px);line-height:1.15;margin-bottom:12px}
+.lead{color:var(--muted);margin-bottom:30px;max-width:60ch}
+
+/* repair types */
+.types{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px}
+.type{background:var(--paper);border:1px solid var(--line);border-top:5px solid var(--accent);border-radius:4px;padding:24px}
+.type h3{font-family:var(--display);font-weight:700;font-size:20px;margin-bottom:6px}
+.type .price{font-family:var(--display);font-weight:700;font-size:22px;color:var(--accent);margin-bottom:10px}
+.type ul{list-style:none;color:var(--muted);font-size:16px}
+.type li{padding:4px 0 4px 20px;position:relative}
+.type li::before{content:"";position:absolute;left:0;top:14px;width:10px;height:2px;background:var(--accent)}
+
+/* calculator */
+.calc-sec{background:var(--sand)}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;background:var(--paper);border-radius:6px;padding:36px}
+.calc-form{display:grid;gap:18px}
+.calc-out{background:var(--dark);color:#fff;border-radius:6px;padding:28px}
+.calc-out small{color:#A9B7BB;font-size:15px}
+.calc-out .sum{font-family:var(--display);font-weight:800;font-size:clamp(26px,4vw,36px);line-height:1.2;margin:8px 0 14px}
+.calc-out p{font-size:15px;color:#C5D0D3;margin-bottom:18px}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.gallery figure{background:var(--paper);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.gallery figcaption{padding:10px 14px;font-size:15px;color:var(--muted)}
+
+/* steps */
+.steps-sec{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px;margin-top:30px;counter-reset:s;list-style:none}
+.steps li{counter-increment:s;padding-top:16px;border-top:4px solid var(--accent)}
+.steps li::before{content:"0" counter(s);font-family:var(--display);font-weight:800;font-size:28px;color:var(--accent);display:block;line-height:1;margin-bottom:8px}
+.steps h3{font-family:var(--display);font-size:18px;font-weight:700;margin-bottom:4px}
+.steps p{color:var(--muted);font-size:16px}
+
+/* guarantees */
+.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:28px}
+.trust h3{font-family:var(--display);font-weight:700;font-size:19px;margin-bottom:6px}
+.trust p{color:var(--muted);font-size:16px}
+.note{font-size:14px;color:var(--muted);margin-top:22px}
+
+/* contacts + form */
+.two{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:start}
+.contacts dt{font-weight:700;margin-top:18px}
+.contacts dt:first-child{margin-top:0}
+.contacts dd{color:var(--muted)}
+.contacts a{color:var(--ink);font-weight:600}
+form{display:grid;gap:16px;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:28px}
+label{display:grid;gap:6px;font-weight:600;font-size:16px}
+input,select,textarea{font:inherit;padding:12px 14px;border:1.5px solid var(--line);border-radius:4px;background:#fff;color:var(--ink);width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px rgba(31,111,102,.2)}
+textarea{min-height:90px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hint{font-size:14px;color:var(--muted)}
+.status{padding:14px 16px;border-radius:4px;font-weight:600;display:none}
+.status.ok{display:block;background:#DDEFE3;color:#1D5B32}
+.status.err{display:block;background:#F6DCDD;color:#8B1D24}
+button[disabled]{opacity:.6;cursor:wait}
+footer{padding:28px 0;color:var(--muted);font-size:14px}
+
+@media (max-width:860px){.two,.calc{grid-template-columns:1fr;gap:28px}.calc{padding:24px}}
+@media (max-width:560px){.hero{padding:56px 0 52px}section{padding:52px 0}form{padding:20px}.row2{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="hero" id="hero">
+  <div class="wrap">
+    <h1 id="biz-name"></h1>
+    <p id="biz-tagline"></p>
+    <div class="actions">
+      <a class="btn btn-main" href="#raschet">Рассчитать стоимость</a>
+      <a class="btn btn-ghost" id="wa-link" href="#" target="_blank" rel="noopener">Написать в WhatsApp</a>
+    </div>
+    <div class="facts" id="facts"></div>
+  </div>
+</header>
+
+<main>
+  <section id="vidy">
+    <div class="wrap">
+      <h2 class="title">Виды ремонта</h2>
+      <p class="lead" id="types-lead"></p>
+      <div class="types" id="types"></div>
+    </div>
+  </section>
+
+  <section class="calc-sec" id="raschet">
+    <div class="wrap">
+      <h2 class="title">Калькулятор стоимости</h2>
+      <p class="lead" id="calc-lead"></p>
+      <div class="calc">
+        <div class="calc-form">
+          <label>Вид ремонта
+            <select id="calc-type"></select>
+          </label>
+          <label>Площадь, м²
+            <input id="calc-area" type="number" min="10" max="500" value="50" inputmode="numeric">
+          </label>
+        </div>
+        <div class="calc-out" aria-live="polite">
+          <small>Ориентировочная стоимость работ</small>
+          <div class="sum" id="calc-sum"></div>
+          <p id="calc-note"></p>
+          <a class="btn btn-main" href="#zayavka">Получить точный расчёт</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="raboty" hidden>
+    <div class="wrap">
+      <h2 class="title">Наши объекты</h2>
+      <div class="gallery" id="gallery"></div>
+    </div>
+  </section>
+
+  <section class="steps-sec" id="etapy">
+    <div class="wrap">
+      <h2 class="title">Как мы работаем</h2>
+      <ol class="steps" id="steps"></ol>
+    </div>
+  </section>
+
+  <section id="garantii">
+    <div class="wrap">
+      <h2 class="title">Условия работы</h2>
+      <div class="trust" id="trust"></div>
+      <p class="note" id="trust-note"></p>
+    </div>
+  </section>
+
+  <section id="zayavka" style="padding-top:0">
+    <div class="wrap two">
+      <div class="contacts">
+        <h2 class="title">Свяжитесь с нами</h2>
+        <dl>
+          <dt>Адрес офиса</dt><dd id="c-address"></dd>
+          <dd><a id="c-map" href="#" target="_blank" rel="noopener">Открыть на карте</a></dd>
+          <dt>Часы работы</dt><dd id="c-hours"></dd>
+          <dt>Телефон</dt><dd><a id="c-phone" href="#"></a></dd>
+        </dl>
+      </div>
+      <form id="lead-form" novalidate>
+        <h2 class="title" style="font-size:26px;margin-bottom:0">Заявка на расчёт</h2>
+        <label>Ваше имя
+          <input name="name" type="text" autocomplete="name" required>
+        </label>
+        <label>Телефон
+          <input name="phone" type="tel" autocomplete="tel" placeholder="+7 ___ ___-__-__" required>
+        </label>
+        <div class="row2">
+          <label>Тип жилья
+            <select name="object" id="object-select"></select>
+          </label>
+          <label>Площадь, м²
+            <input name="area" id="form-area" type="number" min="1" inputmode="numeric">
+          </label>
+        </div>
+        <label>Вид ремонта
+          <select name="repair" id="form-type"></select>
+        </label>
+        <label>Комментарий
+          <textarea name="comment" placeholder="Что нужно сделать, желаемые сроки"></textarea>
+        </label>
+        <button class="btn btn-main" type="submit" id="submit-btn">Отправить заявку</button>
+        <p class="hint">Мы свяжемся с вами, уточним детали и договоримся о замере.</p>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap" id="footer-text"></div></footer>
+
+<script>
+/* ============================================================
+   НАСТРОЙКИ — меняйте только этот блок под каждого клиента
+   ============================================================ */
+const CONFIG = {
+  name: "Ремонт квартир «Север-Строй»",
+  tagline: "Ремонт квартир и домов под ключ. Смета до начала работ и договор.",
+  phone: "+7 996 915-84-43",
+  whatsapp: "79969158443",               // цифры с кодом страны, без «+»
+  address: "г. Якутск, ул. Примерная, 1",
+  mapUrl: "https://2gis.ru/yakutsk",
+  hours: "Пн–Сб 09:00–18:00",
+
+  // ФОТО: положите файлы в папку photos рядом с index.html и впишите имена.
+  heroPhoto: "",                          // например "photos/main.jpg"; пусто — без фото
+  gallery: [],                            // например { src: "photos/1.jpg", caption: "Двухкомнатная, 54 м²" }
+
+  facts: [
+    { value: "5 лет", label: "работаем в Якутске" },
+    { value: "120+", label: "объектов сдано" },
+    { value: "договор", label: "и смета до старта" }
+  ],
+
+  typesLead: "Выберите уровень ремонта, а точный объём работ определим на замере.",
+  // from и to — цена за 1 м² в рублях (для калькулятора). Заполните реальными расценками.
+  types: [
+    { name: "Косметический", from: 6000, to: 9000, list: ["Покраска и поклейка обоев", "Замена напольного покрытия", "Обновление дверей и плинтусов"] },
+    { name: "Капитальный", from: 12000, to: 18000, list: ["Выравнивание стен и полов", "Замена электрики и сантехники", "Чистовая отделка под ключ"] },
+    { name: "Дизайнерский", from: 20000, to: 30000, list: ["Индивидуальный проект", "Сложная отделка и освещение", "Авторский надзор"] }
+  ],
+  calcLead: "Выберите вид ремонта и площадь, и вы получите ориентир по бюджету за работы.",
+  calcNote: "Расчёт примерный и без учёта материалов. Точную смету составим после бесплатного замера.",
+
+  steps: [
+    { title: "Заявка и замер", text: "Приезжаем на объект, измеряем и обсуждаем пожелания." },
+    { title: "Смета", text: "Составляем подробную смету с ценами на работы и материалы." },
+    { title: "Договор", text: "Фиксируем стоимость, сроки и порядок оплаты в договоре." },
+    { title: "Ремонт", text: "Выполняем работы по графику и показываем промежуточные этапы." },
+    { title: "Сдача", text: "Вместе принимаем результат и подписываем акт." }
+  ],
+
+  trust: [
+    { title: "Договор и смета", text: "Все условия фиксируем письменно до начала работ." },
+    { title: "Контроль этапов", text: "Присылаем фото промежуточных этапов, чтобы вы видели ход ремонта." },
+    { title: "Гарантия", text: "Срок гарантии на выполненные работы указываем в договоре." }
+  ],
+  trustNote: "Это шаблон: условия, сроки и гарантии должны соответствовать тому, что компания реально выполняет.",
+
+  objectTypes: ["Квартира в новостройке", "Квартира во вторичке", "Частный дом", "Коммерческое помещение"],
+
+  // Куда отправлять заявки. Вставьте сюда адрес Webhook из n8n (метод POST).
+  // Пока пусто — заявка откроет WhatsApp с готовым текстом.
+  webhookUrl: ""
+};
+/* ============================================================ */
+
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
+const fmt = (n) => Math.round(n / 1000) * 1000;
+const money = (n) => fmt(n).toLocaleString("ru-RU") + " ₽";
+
+document.title = CONFIG.name + " — Якутск";
+$("biz-name").textContent = CONFIG.name;
+$("biz-tagline").textContent = CONFIG.tagline;
+$("wa-link").href = "https://wa.me/" + CONFIG.whatsapp;
+$("types-lead").textContent = CONFIG.typesLead;
+$("calc-lead").textContent = CONFIG.calcLead;
+$("calc-note").textContent = CONFIG.calcNote;
+$("trust-note").textContent = CONFIG.trustNote;
+$("c-address").textContent = CONFIG.address;
+$("c-map").href = CONFIG.mapUrl;
+$("c-hours").textContent = CONFIG.hours;
+$("c-phone").textContent = CONFIG.phone;
+$("c-phone").href = "tel:" + CONFIG.phone.replace(/[^\d+]/g, "");
+$("footer-text").textContent = "© " + new Date().getFullYear() + " " + CONFIG.name;
+
+// фото
+if (CONFIG.heroPhoto) {
+  const h = $("hero"); h.classList.add("has-photo");
+  h.style.background = "linear-gradient(rgba(29,36,39,.78),rgba(29,36,39,.78)), url('" + encodeURI(CONFIG.heroPhoto) + "') center/cover no-repeat";
+}
+if (CONFIG.gallery.length) {
+  CONFIG.gallery.forEach((g) => {
+    const fig = el("figure"); const img = el("img");
+    img.src = g.src; img.alt = g.caption || "Объект после ремонта"; img.loading = "lazy"; fig.appendChild(img);
+    if (g.caption) fig.appendChild(el("figcaption", "", g.caption));
+    $("gallery").appendChild(fig);
+  });
+  $("raboty").hidden = false;
+}
+
+CONFIG.facts.forEach((f) => { const d = el("div"); d.append(el("b", "", f.value), el("span", "", f.label)); $("facts").appendChild(d); });
+CONFIG.steps.forEach((s) => { const li = el("li"); li.append(el("h3", "", s.title), el("p", "", s.text)); $("steps").appendChild(li); });
+CONFIG.trust.forEach((t) => { const d = el("div"); d.append(el("h3", "", t.title), el("p", "", t.text)); $("trust").appendChild(d); });
+
+// виды ремонта + поля выбора
+CONFIG.types.forEach((t, i) => {
+  const card = el("article", "type");
+  card.append(el("h3", "", t.name + " ремонт"), el("div", "price", "от " + t.from.toLocaleString("ru-RU") + " ₽/м²"));
+  const ul = el("ul"); t.list.forEach((x) => ul.appendChild(el("li", "", x))); card.appendChild(ul);
+  $("types").appendChild(card);
+  [$("calc-type"), $("form-type")].forEach((s) => { const o = el("option", "", t.name + " ремонт"); o.value = String(i); s.appendChild(o); });
+});
+CONFIG.objectTypes.forEach((o) => { const op = el("option", "", o); op.value = o; $("object-select").appendChild(op); });
+
+// калькулятор
+function calc() {
+  const t = CONFIG.types[+$("calc-type").value];
+  const area = Math.max(0, +$("calc-area").value || 0);
+  if (!area) { $("calc-sum").textContent = "Укажите площадь"; return; }
+  $("calc-sum").textContent = money(area * t.from) + " – " + money(area * t.to);
+  $("form-area").value = area;
+  $("form-type").value = $("calc-type").value;
+}
+$("calc-type").addEventListener("change", calc);
+$("calc-area").addEventListener("input", calc);
+calc();
+
+// отправка заявки
+const form = $("lead-form"), statusBox = $("status"), btn = $("submit-btn");
+const showStatus = (type, text) => { statusBox.className = "status " + type; statusBox.textContent = text; };
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const fd = new FormData(form);
+  const t = CONFIG.types[+fd.get("repair")];
+  const area = +fd.get("area") || 0;
+  const data = {
+    name: (fd.get("name") || "").trim(), phone: fd.get("phone") || "", object: fd.get("object"),
+    area: area || "", repair: t ? t.name + " ремонт" : "",
+    estimate: (t && area) ? money(area * t.from) + " – " + money(area * t.to) : "",
+    comment: fd.get("comment") || "", source: location.href, sentAt: new Date().toISOString()
+  };
+  if (!data.name) { showStatus("err", "Укажите имя."); return; }
+  if (data.phone.replace(/\D/g, "").length < 10) { showStatus("err", "Проверьте номер телефона: нужно минимум 10 цифр."); return; }
+
+  btn.disabled = true;
+  try {
+    if (CONFIG.webhookUrl) {
+      const r = await fetch(CONFIG.webhookUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      form.reset(); calc();
+      showStatus("ok", "Заявка отправлена. Мы свяжемся с вами в ближайшее время.");
+    } else {
+      const text = "Здравствуйте! Меня зовут " + data.name + ". Хочу рассчитать ремонт: " + data.repair +
+        ", " + data.object + (data.area ? ", " + data.area + " м²" : "") +
+        (data.estimate ? " (по калькулятору: " + data.estimate + ")" : "") +
+        ". Телефон: " + data.phone + (data.comment ? ". " + data.comment : "");
+      window.open("https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(text), "_blank");
+      showStatus("ok", "Открываем WhatsApp, чтобы отправить заявку.");
+    }
+  } catch (err) {
+    showStatus("err", "Не удалось отправить заявку. Позвоните нам: " + CONFIG.phone);
+  } finally { btn.disabled = false; }
+});
+</script>
+</body>
+</html>
