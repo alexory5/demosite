@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кондитерская — Якутск</title>
+<meta name="description" content="Торты на заказ в Якутске. Каталог, цены, онлайн-заявка.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAF1F2; --paper:#FFFFFF; --ink:#3B2328; --muted:#7A5F65; --line:#EBD3D8;
+  --accent:#B8325A; --accent-dark:#962746; --blush:#F4CCD5; --cocoa:#4A2B31;
+  --display:"Playfair Display","Georgia",serif;
+  --body:"Nunito Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.btn{display:inline-block;padding:14px 28px;border-radius:999px;font:inherit;font-weight:700;text-decoration:none;border:2px solid transparent;cursor:pointer}
+.btn-main{background:var(--accent);color:#fff}
+.btn-main:hover{background:var(--accent-dark)}
+.btn-ghost{border-color:var(--cocoa);color:var(--cocoa)}
+.btn-ghost:hover{background:var(--cocoa);color:#fff}
+.btn-line{border-color:var(--accent);color:var(--accent);padding:10px 20px;background:transparent}
+.btn-line:hover{background:var(--accent);color:#fff}
+
+/* hero */
+.hero{background:var(--blush);padding:84px 0 76px;position:relative;overflow:hidden}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.45)}
+.hero::before{width:360px;height:360px;right:-90px;top:-110px}
+.hero::after{width:200px;height:200px;right:140px;bottom:-90px}
+.hero .wrap{position:relative;z-index:1}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(38px,7vw,74px);line-height:1.05;max-width:13ch;color:var(--cocoa)}
+.hero p{margin-top:20px;font-size:19px;max-width:44ch;color:#5C4047}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.hero.has-photo{color:#fff}
+.hero.has-photo h1{color:#fff}
+.hero.has-photo p{color:#F6E8EB}
+.hero.has-photo::before,.hero.has-photo::after{display:none}
+.hero.has-photo .btn-ghost{border-color:#fff;color:#fff}
+.hero.has-photo .btn-ghost:hover{background:#fff;color:var(--cocoa)}
+
+section{padding:68px 0}
+h2.title{font-family:var(--display);font-weight:700;font-size:clamp(28px,4.5vw,40px);line-height:1.15;margin-bottom:12px}
+.lead{color:var(--muted);margin-bottom:28px;max-width:58ch}
+
+/* filters */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.chip{padding:9px 18px;border:1.5px solid var(--line);background:var(--paper);border-radius:999px;font:inherit;font-weight:600;cursor:pointer;color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* catalog */
+.cakes{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
+.cake{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.photo{aspect-ratio:4/3;background:linear-gradient(135deg,var(--blush),#FBE3E8);display:grid;place-items:center;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.photo .ph{font-family:var(--display);font-size:20px;color:#A47983;text-align:center;padding:14px}
+.cake-body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.cake h3{font-family:var(--display);font-weight:700;font-size:22px;line-height:1.25}
+.cake .desc{color:var(--muted);font-size:15px}
+.cake .meta{font-size:14px;color:var(--muted)}
+.cake .price{font-weight:800;font-size:20px;color:var(--accent)}
+.cake-foot{margin-top:auto;padding-top:8px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.note{font-size:14px;color:var(--muted);margin-top:22px}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.gallery figure{border-radius:12px;overflow:hidden;background:var(--paper);border:1px solid var(--line)}
+.gallery img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.gallery figcaption{padding:8px 12px;font-size:14px;color:var(--muted)}
+
+/* steps */
+.steps-sec{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:28px;margin-top:28px;counter-reset:s;list-style:none}
+.steps li{counter-increment:s}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--blush);color:var(--cocoa);font-family:var(--display);font-weight:800;font-size:19px;margin-bottom:10px}
+.steps h3{font-family:var(--display);font-size:19px;font-weight:700;margin-bottom:4px}
+.steps p{color:var(--muted);font-size:15px}
+
+/* info */
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:28px}
+.info h3{font-family:var(--display);font-weight:700;font-size:20px;margin-bottom:6px}
+.info p{color:var(--muted);font-size:15px}
+
+/* contacts + form */
+.two{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:start}
+.contacts dt{font-weight:700;margin-top:18px}
+.contacts dt:first-child{margin-top:0}
+.contacts dd{color:var(--muted)}
+.contacts a{color:var(--ink);font-weight:600}
+form{display:grid;gap:16px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:28px}
+label{display:grid;gap:6px;font-weight:600;font-size:15px}
+input,select,textarea{font:inherit;padding:12px 14px;border:1.5px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px rgba(184,50,90,.18)}
+textarea{min-height:90px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hint{font-size:14px;color:var(--muted)}
+.status{padding:14px 16px;border-radius:8px;font-weight:600;display:none}
+.status.ok{display:block;background:#DDEFE3;color:#1D5B32}
+.status.err{display:block;background:#F6DCDD;color:#8B1D24}
+button[disabled]{opacity:.6;cursor:wait}
+footer{padding:28px 0;color:var(--muted);font-size:14px}
+
+@media (max-width:860px){.two{grid-template-columns:1fr;gap:32px}}
+@media (max-width:560px){.hero{padding:56px 0 52px}section{padding:48px 0}form{padding:20px}.row2{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="hero" id="hero">
+  <div class="wrap">
+    <h1 id="biz-name"></h1>
+    <p id="biz-tagline"></p>
+    <div class="actions">
+      <a class="btn btn-main" href="#zakaz">Заказать торт</a>
+      <a class="btn btn-ghost" id="wa-link" href="#" target="_blank" rel="noopener">Написать в WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="katalog">
+    <div class="wrap">
+      <h2 class="title">Наши торты</h2>
+      <p class="lead" id="catalog-lead"></p>
+      <div class="filters" id="filters" role="group" aria-label="Категории"></div>
+      <div class="cakes" id="cakes"></div>
+      <p class="note" id="catalog-note"></p>
+    </div>
+  </section>
+
+  <section id="raboty" hidden style="padding-top:0">
+    <div class="wrap">
+      <h2 class="title">Наши работы</h2>
+      <div class="gallery" id="gallery"></div>
+    </div>
+  </section>
+
+  <section class="steps-sec" id="kak-zakazat">
+    <div class="wrap">
+      <h2 class="title">Как заказать</h2>
+      <ol class="steps" id="steps"></ol>
+    </div>
+  </section>
+
+  <section id="usloviya">
+    <div class="wrap">
+      <h2 class="title">Важно знать</h2>
+      <div class="info" id="info"></div>
+    </div>
+  </section>
+
+  <section id="zakaz" style="padding-top:0">
+    <div class="wrap two">
+      <div class="contacts">
+        <h2 class="title">Где мы</h2>
+        <dl>
+          <dt>Адрес</dt><dd id="c-address"></dd>
+          <dd><a id="c-map" href="#" target="_blank" rel="noopener">Открыть на карте</a></dd>
+          <dt>Часы работы</dt><dd id="c-hours"></dd>
+          <dt>Телефон</dt><dd><a id="c-phone" href="#"></a></dd>
+        </dl>
+      </div>
+      <form id="lead-form" novalidate>
+        <h2 class="title" style="font-size:28px;margin-bottom:0">Заказать торт</h2>
+        <label>Ваше имя
+          <input name="name" type="text" autocomplete="name" required>
+        </label>
+        <label>Телефон
+          <input name="phone" type="tel" autocomplete="tel" placeholder="+7 ___ ___-__-__" required>
+        </label>
+        <label>Какой торт
+          <select name="cake" id="cake-select"></select>
+        </label>
+        <div class="row2">
+          <label>Вес или число порций
+            <input name="size" type="text" placeholder="Например, 2 кг">
+          </label>
+          <label>Дата получения
+            <input name="date" type="date" id="date-input">
+          </label>
+        </div>
+        <label>Как получить
+          <select name="delivery" id="delivery-select"></select>
+        </label>
+        <label>Надпись, оформление, пожелания
+          <textarea name="comment" placeholder="Например, надпись «С днём рождения, Аня!», без орехов"></textarea>
+        </label>
+        <button class="btn btn-main" type="submit" id="submit-btn">Отправить заказ</button>
+        <p class="hint">Мы свяжемся с вами, уточним детали и подтвердим стоимость и дату.</p>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap" id="footer-text"></div></footer>
+
+<script>
+/* ============================================================
+   НАСТРОЙКИ — меняйте только этот блок под каждого клиента
+   ============================================================ */
+const CONFIG = {
+  name: "Кондитерская «Сладкий Север»",
+  tagline: "Торты на заказ для дней рождения, свадеб и просто хорошего настроения.",
+  phone: "+7 914 000-00-00",
+  whatsapp: "79140000000",               // цифры с кодом страны, без «+»
+  address: "г. Якутск, ул. Примерная, 1",
+  mapUrl: "https://2gis.ru/yakutsk",
+  hours: "Ежедневно, 09:00–20:00",
+
+  // ФОТО: положите файлы в папку photos рядом с index.html и впишите имена.
+  heroPhoto: "",                          // например "photos/main.jpg"; пусто — без фото
+  gallery: [],                            // например { src: "photos/1.jpg", caption: "Торт на юбилей" }
+
+  catalogLead: "Все торты готовятся под заказ. Вкус, начинку и оформление можно подобрать под ваш праздник.",
+  catalogNote: "Это шаблон: названия, составы и цены нужно заменить данными вашей кондитерской.",
+  // У каждого торта: category должна совпадать с названием в списке categories
+  categories: ["Классические", "Детские", "Праздничные"],
+  cakes: [
+    { name: "Медовик", desc: "Медовые коржи и сметанный крем.", meta: "от 1,5 кг", price: "от 2 400 ₽ / кг", category: "Классические", photo: "" },
+    { name: "Наполеон", desc: "Слоёные коржи и заварной крем.", meta: "от 1,5 кг", price: "от 2 600 ₽ / кг", category: "Классические", photo: "" },
+    { name: "Красный бархат", desc: "Нежные коржи и сливочный крем-чиз.", meta: "от 2 кг", price: "от 3 200 ₽ / кг", category: "Праздничные", photo: "" },
+    { name: "Шоколадный торт", desc: "Шоколадные коржи, ганаш и ягодная прослойка.", meta: "от 2 кг", price: "от 3 000 ₽ / кг", category: "Праздничные", photo: "" },
+    { name: "Торт для малышей", desc: "Лёгкий бисквит и сливочный крем, оформление на выбор.", meta: "от 1,5 кг", price: "от 3 100 ₽ / кг", category: "Детские", photo: "" },
+    { name: "Бенто-торт", desc: "Маленький торт на 2–4 порции с надписью.", meta: "около 500 г", price: "от 1 500 ₽", category: "Детские", photo: "" }
+  ],
+
+  steps: [
+    { title: "Выберите торт", text: "Посмотрите каталог или опишите идею своими словами." },
+    { title: "Оставьте заявку", text: "Укажите вес, дату и пожелания по оформлению." },
+    { title: "Согласуем детали", text: "Уточним начинку, декор и называем итоговую стоимость." },
+    { title: "Предоплата", text: "Подтверждаем заказ после внесения предоплаты." },
+    { title: "Получите торт", text: "Заберите в кондитерской или закажите доставку." }
+  ],
+
+  info: [
+    { title: "Заказывайте заранее", text: "Чем раньше вы оформите заявку, тем проще подобрать свободную дату. Сложные торты лучше заказывать за несколько дней." },
+    { title: "Самовывоз и доставка", text: "Торт можно забрать в кондитерской или заказать доставку по городу. Стоимость доставки называем при подтверждении." },
+    { title: "Аллергии и пожелания", text: "Если у кого-то из гостей аллергия или особая диета, обязательно напишите об этом в заявке. Состав любого торта сообщим по запросу." }
+  ],
+
+  deliveryOptions: ["Самовывоз", "Доставка (обсудим с менеджером)"],
+
+  // Куда отправлять заявки. Вставьте сюда адрес Webhook из n8n (метод POST).
+  // Пока пусто — заявка откроет WhatsApp с готовым текстом.
+  webhookUrl: ""
+};
+/* ============================================================ */
+
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
+
+document.title = CONFIG.name + " — Якутск";
+$("biz-name").textContent = CONFIG.name;
+$("biz-tagline").textContent = CONFIG.tagline;
+$("wa-link").href = "https://wa.me/" + CONFIG.whatsapp;
+$("catalog-lead").textContent = CONFIG.catalogLead;
+$("catalog-note").textContent = CONFIG.catalogNote;
+$("c-address").textContent = CONFIG.address;
+$("c-map").href = CONFIG.mapUrl;
+$("c-hours").textContent = CONFIG.hours;
+$("c-phone").textContent = CONFIG.phone;
+$("c-phone").href = "tel:" + CONFIG.phone.replace(/[^\d+]/g, "");
+$("footer-text").textContent = "© " + new Date().getFullYear() + " " + CONFIG.name;
+
+// фото в шапке и галерея
+if (CONFIG.heroPhoto) {
+  const h = $("hero"); h.classList.add("has-photo");
+  h.style.background = "linear-gradient(rgba(59,35,40,.62),rgba(59,35,40,.62)), url('" + encodeURI(CONFIG.heroPhoto) + "') center/cover no-repeat";
+}
+if (CONFIG.gallery.length) {
+  CONFIG.gallery.forEach((g) => {
+    const fig = el("figure"); const img = el("img");
+    img.src = g.src; img.alt = g.caption || "Торт"; img.loading = "lazy"; fig.appendChild(img);
+    if (g.caption) fig.appendChild(el("figcaption", "", g.caption));
+    $("gallery").appendChild(fig);
+  });
+  $("raboty").hidden = false;
+}
+
+CONFIG.steps.forEach((s) => { const li = el("li"); li.append(el("h3", "", s.title), el("p", "", s.text)); $("steps").appendChild(li); });
+CONFIG.info.forEach((t) => { const d = el("div"); d.append(el("h3", "", t.title), el("p", "", t.text)); $("info").appendChild(d); });
+
+// каталог
+function renderCakes(cat) {
+  const box = $("cakes"); box.textContent = "";
+  CONFIG.cakes.filter((c) => cat === "all" || c.category === cat).forEach((c) => {
+    const card = el("article", "cake");
+    const photo = el("div", "photo");
+    if (c.photo) { const img = el("img"); img.src = c.photo; img.alt = c.name; img.loading = "lazy"; photo.appendChild(img); }
+    else photo.appendChild(el("div", "ph", c.name));
+    const body = el("div", "cake-body");
+    body.append(el("h3", "", c.name), el("p", "desc", c.desc));
+    if (c.meta) body.appendChild(el("p", "meta", c.meta));
+    const foot = el("div", "cake-foot");
+    const btn = el("a", "btn btn-line", "Заказать"); btn.href = "#zakaz";
+    btn.addEventListener("click", () => { $("cake-select").value = c.name; });
+    foot.append(el("span", "price", c.price), btn);
+    body.appendChild(foot);
+    card.append(photo, body); box.appendChild(card);
+  });
+}
+[["all", "Все"]].concat(CONFIG.categories.map((c) => [c, c])).forEach(([key, label], i) => {
+  const b = el("button", "chip", label); b.type = "button"; b.setAttribute("aria-pressed", i === 0);
+  b.addEventListener("click", () => {
+    document.querySelectorAll(".chip").forEach((x) => x.setAttribute("aria-pressed", "false"));
+    b.setAttribute("aria-pressed", "true"); renderCakes(key);
+  });
+  $("filters").appendChild(b);
+});
+renderCakes("all");
+
+// поля формы
+const cs = $("cake-select");
+const c0 = el("option", "", "Хочу индивидуальный торт (опишу в комментарии)"); c0.value = "Индивидуальный торт"; cs.appendChild(c0);
+CONFIG.cakes.forEach((c) => { const o = el("option", "", c.name + " — " + c.price); o.value = c.name; cs.appendChild(o); });
+CONFIG.deliveryOptions.forEach((d) => { const o = el("option", "", d); o.value = d; $("delivery-select").appendChild(o); });
+const today = new Date(); today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+$("date-input").min = today.toISOString().slice(0, 10);
+
+// отправка заявки
+const form = $("lead-form"), statusBox = $("status"), btn = $("submit-btn");
+const showStatus = (type, text) => { statusBox.className = "status " + type; statusBox.textContent = text; };
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const fd = new FormData(form);
+  const data = {
+    name: (fd.get("name") || "").trim(), phone: fd.get("phone") || "", cake: fd.get("cake"),
+    size: fd.get("size") || "", date: fd.get("date") || "", delivery: fd.get("delivery"),
+    comment: fd.get("comment") || "", source: location.href, sentAt: new Date().toISOString()
+  };
+  if (!data.name) { showStatus("err", "Укажите имя."); return; }
+  if (data.phone.replace(/\D/g, "").length < 10) { showStatus("err", "Проверьте номер телефона: нужно минимум 10 цифр."); return; }
+
+  btn.disabled = true;
+  try {
+    if (CONFIG.webhookUrl) {
+      const r = await fetch(CONFIG.webhookUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      form.reset();
+      showStatus("ok", "Заказ отправлен. Мы свяжемся с вами в ближайшее время.");
+    } else {
+      const text = "Здравствуйте! Меня зовут " + data.name + ". Хочу заказать: " + data.cake +
+        (data.size ? ", " + data.size : "") + (data.date ? ", на " + data.date : "") +
+        ". Получение: " + data.delivery + ". Телефон: " + data.phone +
+        (data.comment ? ". " + data.comment : "");
+      window.open("https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(text), "_blank");
+      showStatus("ok", "Открываем WhatsApp, чтобы отправить заказ.");
+    }
+  } catch (err) {
+    showStatus("err", "Не удалось отправить заказ. Позвоните нам: " + CONFIG.phone);
+  } finally { btn.disabled = false; }
+});
+</script>
+</body>
+</html>
