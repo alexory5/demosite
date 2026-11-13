@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Салон красоты — Якутск</title>
+<meta name="description" content="Салон красоты в Якутске. Услуги и цены, мастера, онлайн-запись.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAF7F4; --paper:#FFFFFF; --ink:#2E2230; --muted:#6F6272; --line:#E6DDE0;
+  --plum:#3A2A3C; --gold:#A9824A; --gold-dark:#8B6A39; --blush:#F1E6E4;
+  --display:"Cormorant Garamond","Georgia",serif;
+  --body:"Jost",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.btn{display:inline-block;padding:14px 30px;border-radius:2px;font:inherit;font-weight:500;letter-spacing:.04em;text-decoration:none;border:1.5px solid transparent;cursor:pointer;text-transform:uppercase;font-size:14px}
+.btn-main{background:var(--gold);color:#fff}
+.btn-main:hover{background:var(--gold-dark)}
+.btn-ghost{border-color:#E9DCCB;color:#fff}
+.btn-ghost:hover{background:#fff;color:var(--plum)}
+
+/* hero */
+.hero{background:var(--plum);color:#fff;padding:96px 0 84px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-140px;top:-140px;width:460px;height:460px;border:1.5px solid rgba(201,162,107,.45);border-radius:50%}
+.hero::before{content:"";position:absolute;right:-60px;top:-60px;width:300px;height:300px;border:1.5px solid rgba(201,162,107,.3);border-radius:50%}
+.hero .wrap{position:relative;z-index:1}
+.hero h1{font-family:var(--display);font-weight:600;font-size:clamp(42px,8vw,86px);line-height:1;max-width:12ch}
+.hero p{margin-top:22px;font-size:19px;max-width:44ch;color:#DACFDC}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.hero.has-photo::before,.hero.has-photo::after{display:none}
+
+section{padding:76px 0}
+h2.title{font-family:var(--display);font-weight:600;font-size:clamp(32px,5vw,46px);line-height:1.1;margin-bottom:12px}
+h2.title::after{content:"";display:block;width:56px;height:2px;background:var(--gold);margin-top:14px}
+.lead{color:var(--muted);margin:16px 0 32px;max-width:58ch}
+
+/* services */
+.groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
+.group{background:var(--paper);border:1px solid var(--line);padding:26px 28px}
+.group h3{font-family:var(--display);font-weight:700;font-size:26px;margin-bottom:8px;color:var(--plum)}
+.group ul{list-style:none}
+.group li{display:flex;gap:10px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line)}
+.group li:last-child{border-bottom:0}
+.group .fill{flex:1}
+.group .dur{color:var(--muted);font-size:14px;margin-left:6px}
+.group .price{font-weight:600;white-space:nowrap}
+.note{font-size:14px;color:var(--muted);margin-top:22px}
+
+/* masters */
+.masters-sec{background:var(--blush)}
+.masters{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px;margin-top:8px}
+.master{text-align:center}
+.master .pic{aspect-ratio:3/4;background:linear-gradient(160deg,#E7D6D6,#F7EEEC);display:grid;place-items:center;overflow:hidden;margin-bottom:14px}
+.master .pic img{width:100%;height:100%;object-fit:cover;display:block}
+.master .pic span{font-family:var(--display);font-size:56px;color:#B59AA0}
+.master h3{font-family:var(--display);font-weight:700;font-size:24px}
+.master p{color:var(--muted);font-size:15px}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.gallery figure{background:var(--paper);border:1px solid var(--line);overflow:hidden}
+.gallery img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.gallery figcaption{padding:8px 12px;font-size:14px;color:var(--muted)}
+
+/* info */
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px}
+.info h3{font-family:var(--display);font-weight:700;font-size:24px;margin-bottom:6px;color:var(--plum)}
+.info p{color:var(--muted);font-size:16px}
+
+/* contacts + form */
+.two{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:start}
+.contacts dt{font-weight:600;margin-top:18px}
+.contacts dt:first-child{margin-top:0}
+.contacts dd{color:var(--muted)}
+.contacts a{color:var(--ink);font-weight:500}
+form{display:grid;gap:16px;background:var(--paper);border:1px solid var(--line);padding:30px}
+label{display:grid;gap:6px;font-weight:500;font-size:15px}
+input,select,textarea{font:inherit;padding:12px 14px;border:1.5px solid var(--line);border-radius:2px;background:#fff;color:var(--ink);width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--gold);outline:none;box-shadow:0 0 0 3px rgba(169,130,74,.2)}
+textarea{min-height:80px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hint{font-size:14px;color:var(--muted)}
+.status{padding:14px 16px;font-weight:500;display:none}
+.status.ok{display:block;background:#DDEFE3;color:#1D5B32}
+.status.err{display:block;background:#F6DCDD;color:#8B1D24}
+button[disabled]{opacity:.6;cursor:wait}
+footer{padding:28px 0;color:var(--muted);font-size:14px}
+
+@media (max-width:860px){.two{grid-template-columns:1fr;gap:32px}}
+@media (max-width:560px){.hero{padding:60px 0 56px}section{padding:52px 0}form{padding:20px}.row2{grid-template-columns:1fr}.group{padding:20px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="hero" id="hero">
+  <div class="wrap">
+    <h1 id="biz-name"></h1>
+    <p id="biz-tagline"></p>
+    <div class="actions">
+      <a class="btn btn-main" href="#zapis">Записаться</a>
+      <a class="btn btn-ghost" id="wa-link" href="#" target="_blank" rel="noopener">Написать в WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="uslugi">
+    <div class="wrap">
+      <h2 class="title">Услуги и цены</h2>
+      <p class="lead" id="price-lead"></p>
+      <div class="groups" id="groups"></div>
+      <p class="note" id="price-note"></p>
+    </div>
+  </section>
+
+  <section class="masters-sec" id="mastera" hidden>
+    <div class="wrap">
+      <h2 class="title">Наши мастера</h2>
+      <div class="masters" id="masters"></div>
+    </div>
+  </section>
+
+  <section id="raboty" hidden>
+    <div class="wrap">
+      <h2 class="title">Наши работы</h2>
+      <div class="gallery" id="gallery"></div>
+    </div>
+  </section>
+
+  <section id="info">
+    <div class="wrap">
+      <h2 class="title">Хорошо знать</h2>
+      <div class="info" id="info-grid" style="margin-top:28px"></div>
+    </div>
+  </section>
+
+  <section id="zapis" style="padding-top:0">
+    <div class="wrap two">
+      <div class="contacts">
+        <h2 class="title">Как нас найти</h2>
+        <dl style="margin-top:28px">
+          <dt>Адрес</dt><dd id="c-address"></dd>
+          <dd><a id="c-map" href="#" target="_blank" rel="noopener">Открыть на карте</a></dd>
+          <dt>Часы работы</dt><dd id="c-hours"></dd>
+          <dt>Телефон</dt><dd><a id="c-phone" href="#"></a></dd>
+        </dl>
+      </div>
+      <form id="lead-form" novalidate>
+        <h2 class="title" style="font-size:34px;margin-bottom:0">Онлайн-запись</h2>
+        <label>Ваше имя
+          <input name="name" type="text" autocomplete="name" required>
+        </label>
+        <label>Телефон
+          <input name="phone" type="tel" autocomplete="tel" placeholder="+7 ___ ___-__-__" required>
+        </label>
+        <label>Услуга
+          <select name="service" id="service-select"></select>
+        </label>
+        <div class="row2">
+          <label>Мастер
+            <select name="master" id="master-select"></select>
+          </label>
+          <label>Желаемая дата
+            <input name="date" type="date" id="date-input">
+          </label>
+        </div>
+        <label>Удобное время
+          <input name="time" type="text" placeholder="Например, после 17:00">
+        </label>
+        <label>Комментарий
+          <textarea name="comment"></textarea>
+        </label>
+        <button class="btn btn-main" type="submit" id="submit-btn">Записаться</button>
+        <p class="hint">Администратор свяжется с вами и подтвердит время записи.</p>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap" id="footer-text"></div></footer>
+
+<script>
+/* ============================================================
+   НАСТРОЙКИ — меняйте только этот блок под каждого клиента
+   ============================================================ */
+const CONFIG = {
+  name: "Салон красоты «Аврора»",
+  tagline: "Стрижки, окрашивание, маникюр и уход. Запишитесь онлайн в удобное время.",
+  phone: "+7 914 000-00-00",
+  whatsapp: "79140000000",               // цифры с кодом страны, без «+»
+  address: "г. Якутск, ул. Примерная, 1",
+  mapUrl: "https://2gis.ru/yakutsk",
+  hours: "Ежедневно, 10:00–20:00",
+
+  // ФОТО: положите файлы в папку photos рядом с index.html и впишите имена.
+  heroPhoto: "",                          // например "photos/main.jpg"; пусто — без фото
+  gallery: [],                            // например { src: "photos/1.jpg", caption: "Окрашивание балаяж" }
+
+  priceLead: "Цены указаны ориентировочно: итоговая стоимость зависит от длины волос, сложности работы и материалов.",
+  priceNote: "Это шаблон: услуги, цены и время работ нужно заменить данными вашего салона.",
+  groups: [
+    { title: "Волосы", items: [
+      { name: "Женская стрижка", price: "от 2 000 ₽", dur: "1 ч" },
+      { name: "Мужская стрижка", price: "от 1 200 ₽", dur: "45 мин" },
+      { name: "Окрашивание в один тон", price: "от 4 500 ₽", dur: "2,5 ч" },
+      { name: "Укладка", price: "от 1 800 ₽", dur: "1 ч" }
+    ]},
+    { title: "Маникюр и педикюр", items: [
+      { name: "Маникюр с покрытием", price: "от 2 200 ₽", dur: "2 ч" },
+      { name: "Педикюр с покрытием", price: "от 2 800 ₽", dur: "2 ч" },
+      { name: "Снятие покрытия", price: "от 500 ₽" }
+    ]},
+    { title: "Брови и ресницы", items: [
+      { name: "Коррекция и окрашивание бровей", price: "от 1 200 ₽", dur: "40 мин" },
+      { name: "Ламинирование ресниц", price: "от 2 500 ₽", dur: "1 ч" }
+    ]},
+    { title: "Уход", items: [
+      { name: "Чистка лица", price: "от 3 500 ₽", dur: "1,5 ч" },
+      { name: "Уход для волос", price: "от 2 500 ₽", dur: "1 ч" }
+    ]}
+  ],
+
+  // Мастера. Блок показывается, если список не пустой. Удалите вымышленных и впишите настоящих.
+  masters: [
+    { name: "Анна", role: "Стилист-парикмахер", photo: "" },
+    { name: "Мария", role: "Мастер маникюра", photo: "" },
+    { name: "Елена", role: "Косметолог", photo: "" }
+  ],
+
+  info: [
+    { title: "Запись заранее", text: "Лучше записываться за несколько дней, особенно на выходные и перед праздниками." },
+    { title: "Если планы изменились", text: "Предупредите нас заранее, и мы перенесём запись на другое время." },
+    { title: "Подбор образа", text: "Мастер подскажет, что подойдёт именно вам, и заранее назовёт стоимость." }
+  ],
+
+  // Куда отправлять заявки. Вставьте сюда адрес Webhook из n8n (метод POST).
+  // Пока пусто — заявка откроет WhatsApp с готовым текстом.
+  webhookUrl: ""
+};
+/* ============================================================ */
+
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
+
+document.title = CONFIG.name + " — Якутск";
+$("biz-name").textContent = CONFIG.name;
+$("biz-tagline").textContent = CONFIG.tagline;
+$("wa-link").href = "https://wa.me/" + CONFIG.whatsapp;
+$("price-lead").textContent = CONFIG.priceLead;
+$("price-note").textContent = CONFIG.priceNote;
+$("c-address").textContent = CONFIG.address;
+$("c-map").href = CONFIG.mapUrl;
+$("c-hours").textContent = CONFIG.hours;
+$("c-phone").textContent = CONFIG.phone;
+$("c-phone").href = "tel:" + CONFIG.phone.replace(/[^\d+]/g, "");
+$("footer-text").textContent = "© " + new Date().getFullYear() + " " + CONFIG.name;
+
+// фото в шапке
+if (CONFIG.heroPhoto) {
+  const h = $("hero"); h.classList.add("has-photo");
+  h.style.background = "linear-gradient(rgba(58,42,60,.74),rgba(58,42,60,.74)), url('" + encodeURI(CONFIG.heroPhoto) + "') center/cover no-repeat";
+}
+// галерея
+if (CONFIG.gallery.length) {
+  CONFIG.gallery.forEach((g) => {
+    const fig = el("figure"); const img = el("img");
+    img.src = g.src; img.alt = g.caption || "Работа мастера"; img.loading = "lazy"; fig.appendChild(img);
+    if (g.caption) fig.appendChild(el("figcaption", "", g.caption));
+    $("gallery").appendChild(fig);
+  });
+  $("raboty").hidden = false;
+}
+
+// услуги + список для формы
+const ss = $("service-select");
+const s0 = el("option", "", "Нужна консультация"); s0.value = "Консультация"; ss.appendChild(s0);
+CONFIG.groups.forEach((g) => {
+  const box = el("div", "group"); box.appendChild(el("h3", "", g.title));
+  const ul = el("ul");
+  g.items.forEach((i) => {
+    const li = el("li"); const n = el("span", "", i.name);
+    if (i.dur) n.appendChild(el("span", "dur", i.dur));
+    li.append(n, el("span", "fill"), el("span", "price", i.price)); ul.appendChild(li);
+    const o = el("option", "", i.name); o.value = i.name; ss.appendChild(o);
+  });
+  box.appendChild(ul); $("groups").appendChild(box);
+});
+
+// мастера
+const ms = $("master-select");
+const m0 = el("option", "", "Любой мастер"); m0.value = "Любой мастер"; ms.appendChild(m0);
+if (CONFIG.masters.length) {
+  CONFIG.masters.forEach((m) => {
+    const card = el("article", "master"); const pic = el("div", "pic");
+    if (m.photo) { const img = el("img"); img.src = m.photo; img.alt = m.name; img.loading = "lazy"; pic.appendChild(img); }
+    else pic.appendChild(el("span", "", m.name.charAt(0)));
+    card.append(pic, el("h3", "", m.name), el("p", "", m.role));
+    $("masters").appendChild(card);
+    const o = el("option", "", m.name + (m.role ? " — " + m.role : "")); o.value = m.name; ms.appendChild(o);
+  });
+  $("mastera").hidden = false;
+}
+
+CONFIG.info.forEach((t) => { const d = el("div"); d.append(el("h3", "", t.title), el("p", "", t.text)); $("info-grid").appendChild(d); });
+
+// дата не раньше сегодняшней
+const today = new Date(); today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+$("date-input").min = today.toISOString().slice(0, 10);
+
+// отправка заявки
+const form = $("lead-form"), statusBox = $("status"), btn = $("submit-btn");
+const showStatus = (type, text) => { statusBox.className = "status " + type; statusBox.textContent = text; };
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const fd = new FormData(form);
+  const data = {
+    name: (fd.get("name") || "").trim(), phone: fd.get("phone") || "", service: fd.get("service"),
+    master: fd.get("master"), date: fd.get("date") || "", time: fd.get("time") || "",
+    comment: fd.get("comment") || "", source: location.href, sentAt: new Date().toISOString()
+  };
+  if (!data.name) { showStatus("err", "Укажите имя."); return; }
+  if (data.phone.replace(/\D/g, "").length < 10) { showStatus("err", "Проверьте номер телефона: нужно минимум 10 цифр."); return; }
+
+  btn.disabled = true;
+  try {
+    if (CONFIG.webhookUrl) {
+      const r = await fetch(CONFIG.webhookUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      form.reset();
+      showStatus("ok", "Заявка отправлена. Мы свяжемся с вами, чтобы подтвердить запись.");
+    } else {
+      const text = "Здравствуйте! Меня зовут " + data.name + ". Хочу записаться: " + data.service +
+        ", мастер: " + data.master + (data.date ? ", дата: " + data.date : "") +
+        (data.time ? ", время: " + data.time : "") + ". Телефон: " + data.phone +
+        (data.comment ? ". " + data.comment : "");
+      window.open("https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(text), "_blank");
+      showStatus("ok", "Открываем WhatsApp, чтобы отправить заявку.");
+    }
+  } catch (err) {
+    showStatus("err", "Не удалось отправить заявку. Позвоните нам: " + CONFIG.phone);
+  } finally { btn.disabled = false; }
+});
+</script>
+</body>
+</html>
