@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ремонт квартир — Якутск</title>
+<meta name="description" content="Ремонт квартир под ключ в Якутске. Расчёт стоимости, смета, договор, онлайн-заявка.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Prata&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#16231F; --forest2:#1F302A; --stone:#EDEAE3; --paper:#F7F5F0;
+  --ink:#17201C; --muted:#5F6A64; --line:#D6D2C8;
+  --copper:#B87444; --copper-d:#9A5E34; --cream:#EAE5D9; --soft:#9FB0A8;
+  --display:"Prata","Georgia",serif;
+  --body:"Manrope",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--stone);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--copper);outline-offset:3px}
+section{scroll-margin-top:72px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.btn{display:inline-block;padding:15px 30px;border-radius:2px;font:inherit;font-weight:600;font-size:14px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.btn-main{background:var(--copper);color:#fff}
+.btn-main:hover{background:var(--copper-d)}
+.btn-ghost{border-color:rgba(234,229,217,.5);color:var(--cream)}
+.btn-ghost:hover{background:var(--cream);color:var(--forest)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* header */
+.top{position:fixed;inset:0 0 auto;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+.top.solid{background:rgba(22,35,31,.94);backdrop-filter:blur(8px);border-color:rgba(255,255,255,.08)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:68px}
+.brand{font-family:var(--display);color:var(--cream);font-size:19px;text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw}
+.nav{display:flex;gap:28px}
+.nav a{color:#C9D3CE;text-decoration:none;font-size:14px;font-weight:500;letter-spacing:.04em}
+.nav a:hover{color:#fff}
+.top .btn{padding:10px 20px;font-size:12px}
+
+/* hero */
+.hero{background:var(--forest);color:var(--cream);min-height:94vh;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;padding:120px 0 0}
+.arches{position:absolute;right:7%;bottom:0;width:min(34vw,430px);height:74%;border:1px solid rgba(184,116,68,.6);border-bottom:0;border-radius:999px 999px 0 0}
+.arches::before,.arches::after{content:"";position:absolute;border:1px solid rgba(184,116,68,.38);border-bottom:0;border-radius:999px 999px 0 0}
+.arches::before{inset:26px 26px 0}
+.arches::after{inset:52px 52px 0}
+.hero .wrap{position:relative;z-index:1;width:100%}
+.eyebrow{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--copper);font-weight:600;display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.eyebrow::before{content:"";width:44px;height:1px;background:var(--copper)}
+.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(42px,8vw,98px);line-height:1.03;max-width:14ch;letter-spacing:-.01em}
+.hero p.sub{margin-top:26px;font-size:clamp(17px,2vw,20px);max-width:46ch;color:#BCC8C2}
+.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:38px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:70px;border-top:1px solid rgba(234,229,217,.18);padding:28px 0 36px}
+.facts b{display:block;font-family:var(--display);font-weight:400;font-size:clamp(26px,4vw,40px);color:var(--cream);line-height:1.1}
+.facts span{color:var(--soft);font-size:14px}
+.hero.has-photo .arches{display:none}
+
+section.pad{padding:104px 0}
+.kicker{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--copper);font-weight:600;margin-bottom:14px}
+h2.title{font-family:var(--display);font-weight:400;font-size:clamp(32px,5vw,54px);line-height:1.1;max-width:18ch}
+.lead{color:var(--muted);margin-top:18px;max-width:56ch}
+
+/* repair types */
+.rows{margin-top:52px;border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:90px 1fr auto;gap:28px;align-items:center;padding:34px 0;border-bottom:1px solid var(--line);transition:padding .3s,background .3s}
+.row:hover{background:var(--paper);padding-left:18px;padding-right:18px}
+.row .num{font-family:var(--display);font-size:38px;color:var(--copper);line-height:1}
+.row h3{font-family:var(--display);font-weight:400;font-size:clamp(22px,3vw,30px);margin-bottom:8px}
+.row ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px 22px;color:var(--muted);font-size:15px}
+.row li::before{content:"— ";color:var(--copper)}
+.row .pr{text-align:right;font-family:var(--display);font-size:clamp(20px,2.6vw,28px);white-space:nowrap}
+.row .pr small{display:block;font-family:var(--body);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* calculator */
+.calc-sec{background:var(--forest);color:var(--cream)}
+.calc-sec .lead{color:#A9B8B1}
+.calc{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;margin-top:52px;align-items:stretch}
+.field{margin-bottom:34px}
+.field>span{display:block;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);margin-bottom:14px;font-weight:600}
+.seg{display:flex;flex-wrap:wrap;gap:10px}
+.seg button{flex:1 1 auto;padding:14px 18px;background:transparent;border:1px solid rgba(234,229,217,.3);color:var(--cream);font:inherit;font-weight:500;cursor:pointer;transition:all .2s}
+.seg button:hover{border-color:var(--cream)}
+.seg button[aria-pressed="true"]{background:var(--copper);border-color:var(--copper);color:#fff}
+.area-line{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px}
+.area-line b{font-family:var(--display);font-weight:400;font-size:44px;line-height:1}
+.area-line em{font-style:normal;color:var(--soft)}
+input[type=range]{width:100%;accent-color:var(--copper);height:28px;cursor:pointer}
+.extra{display:flex;align-items:center;gap:12px;padding:10px 0;cursor:pointer;color:var(--cream)}
+.extra input{width:20px;height:20px;accent-color:var(--copper)}
+.extra small{color:var(--soft);margin-left:auto}
+.out{border:1px solid rgba(184,116,68,.55);padding:40px 36px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(160deg,rgba(184,116,68,.1),transparent)}
+.out small{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);font-weight:600}
+.out .sum{font-family:var(--display);font-size:clamp(28px,4vw,44px);line-height:1.15;margin:16px 0 18px}
+.out p{font-size:14px;color:#A9B8B1;margin-bottom:26px}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:250px;gap:14px;margin-top:48px}
+.gallery figure{position:relative;overflow:hidden;background:var(--paper)}
+.gallery figure:first-child{grid-column:span 2;grid-row:span 2}
+.gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s}
+.gallery figure:hover img{transform:scale(1.05)}
+.gallery figcaption{position:absolute;left:0;right:0;bottom:0;padding:34px 18px 14px;color:#fff;font-size:14px;background:linear-gradient(transparent,rgba(0,0,0,.6))}
+
+/* steps */
+.steps-sec{background:var(--paper)}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:28px;margin-top:56px;list-style:none;counter-reset:s;position:relative}
+.steps::before{content:"";position:absolute;left:0;right:0;top:23px;height:1px;background:var(--line)}
+.steps li{counter-increment:s;position:relative}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:47px;height:47px;border-radius:50%;background:var(--paper);border:1px solid var(--copper);color:var(--copper);font-family:var(--display);font-size:20px;margin-bottom:20px;position:relative}
+.steps h3{font-family:var(--display);font-weight:400;font-size:21px;margin-bottom:6px}
+.steps p{color:var(--muted);font-size:15px}
+
+/* trust */
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;margin-top:52px}
+.trust div{border-top:1px solid var(--ink);padding-top:22px}
+.trust h3{font-family:var(--display);font-weight:400;font-size:24px;margin-bottom:8px}
+.trust p{color:var(--muted);font-size:16px}
+.note{font-size:14px;color:var(--muted);margin-top:34px}
+
+/* contact */
+.contact-sec{background:var(--forest);color:var(--cream)}
+.two{display:grid;grid-template-columns:.9fr 1.1fr;gap:72px;align-items:start}
+.contacts dl{margin-top:40px}
+.contacts dt{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);font-weight:600;margin-top:26px}
+.contacts dt:first-child{margin-top:0}
+.contacts dd{font-size:19px;margin-top:4px}
+.contacts a{text-decoration:none;border-bottom:1px solid rgba(184,116,68,.7)}
+.contacts a:hover{color:#fff}
+form{display:grid;gap:16px;background:var(--stone);color:var(--ink);padding:38px}
+form h3{font-family:var(--display);font-weight:400;font-size:30px;margin-bottom:4px}
+label{display:grid;gap:6px;font-weight:600;font-size:14px}
+input[type=text],input[type=tel],input[type=number],select,textarea{font:inherit;font-weight:400;font-size:16px;padding:13px 14px;border:1px solid var(--line);border-radius:0;background:#fff;color:var(--ink);width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--copper);outline:none;box-shadow:0 0 0 3px rgba(184,116,68,.2)}
+textarea{min-height:90px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hint{font-size:13px;color:var(--muted)}
+.status{padding:14px 16px;font-weight:600;display:none}
+.status.ok{display:block;background:#DDEFE3;color:#1D5B32}
+.status.err{display:block;background:#F6DCDD;color:#8B1D24}
+button[disabled]{opacity:.6;cursor:wait}
+footer{background:#101A17;color:#7F918A;padding:28px 0;font-size:14px}
+
+@media (max-width:980px){
+  .nav{display:none}
+  .calc,.two{grid-template-columns:1fr;gap:44px}
+  .steps{grid-template-columns:1fr 1fr;gap:34px}
+  .steps::before{display:none}
+  .trust{grid-template-columns:1fr;gap:32px}
+  .gallery{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  section.pad{padding:68px 0}
+  .wrap{padding:0 20px}
+  .row{grid-template-columns:1fr;gap:10px}
+  .row .pr{text-align:left}
+  .row .pr small{display:inline;margin-right:8px}
+  .facts{grid-template-columns:1fr;gap:16px;margin-top:44px}
+  .arches{opacity:.35;right:-12%;width:70vw}
+  .out{padding:28px 22px}
+  form{padding:24px}
+  .row2,.steps{grid-template-columns:1fr}
+  .gallery{grid-template-columns:1fr;grid-auto-rows:230px}
+  .gallery figure:first-child{grid-column:auto;grid-row:auto}
+  .top .btn{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .gallery img{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" id="brand" href="#hero"></a>
+    <nav class="nav" aria-label="Разделы сайта">
+      <a href="#vidy">Виды ремонта</a>
+      <a href="#raschet">Расчёт</a>
+      <a href="#etapy">Этапы</a>
+      <a href="#zayavka">Контакты</a>
+    </nav>
+    <a class="btn btn-main" href="#zayavka">Оставить заявку</a>
+  </div>
+</header>
+
+<section class="hero" id="hero">
+  <div class="arches" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="eyebrow" id="eyebrow">Ремонт под ключ · Якутск</div>
+    <h1 id="biz-name"></h1>
+    <p class="sub" id="biz-tagline"></p>
+    <div class="actions">
+      <a class="btn btn-main" href="#raschet">Рассчитать стоимость</a>
+      <a class="btn btn-ghost" id="wa-link" href="#" target="_blank" rel="noopener">Написать в WhatsApp</a>
+    </div>
+    <div class="facts" id="facts"></div>
+  </div>
+</section>
+
+<main>
+  <section class="pad" id="vidy">
+    <div class="wrap">
+      <div class="kicker reveal">Услуги</div>
+      <h2 class="title reveal">Виды ремонта</h2>
+      <p class="lead reveal" id="types-lead"></p>
+      <div class="rows" id="types"></div>
+    </div>
+  </section>
+
+  <section class="pad calc-sec" id="raschet">
+    <div class="wrap">
+      <div class="kicker reveal">Калькулятор</div>
+      <h2 class="title reveal">Стоимость ремонта</h2>
+      <p class="lead reveal" id="calc-lead"></p>
+      <div class="calc reveal">
+        <div>
+          <div class="field"><span>Вид ремонта</span><div class="seg" id="seg"></div></div>
+          <div class="field">
+            <span>Площадь</span>
+            <div class="area-line"><b id="area-val">60</b><em>м²</em></div>
+            <input id="calc-area" type="range" min="20" max="300" step="1" value="60" aria-label="Площадь, м²">
+          </div>
+          <div class="field" id="extras-box"><span>Дополнительно</span><div id="extras"></div></div>
+        </div>
+        <div class="out" aria-live="polite">
+          <small>Ориентировочная стоимость работ</small>
+          <div class="sum" id="calc-sum"></div>
+          <p id="calc-note"></p>
+          <a class="btn btn-main" href="#zayavka" style="align-self:flex-start">Получить точный расчёт</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad" id="raboty" hidden>
+    <div class="wrap">
+      <div class="kicker reveal">Портфолио</div>
+      <h2 class="title reveal">Наши объекты</h2>
+      <div class="gallery reveal" id="gallery"></div>
+    </div>
+  </section>
+
+  <section class="pad steps-sec" id="etapy">
+    <div class="wrap">
+      <div class="kicker reveal">Процесс</div>
+      <h2 class="title reveal">Как мы работаем</h2>
+      <ol class="steps reveal" id="steps"></ol>
+    </div>
+  </section>
+
+  <section class="pad" id="garantii">
+    <div class="wrap">
+      <div class="kicker reveal">Условия</div>
+      <h2 class="title reveal">На чём строится работа</h2>
+      <div class="trust reveal" id="trust"></div>
+      <p class="note" id="trust-note"></p>
+    </div>
+  </section>
+
+  <section class="pad contact-sec" id="zayavka">
+    <div class="wrap two">
+      <div class="contacts reveal">
+        <div class="kicker">Контакты</div>
+        <h2 class="title">Обсудим ваш ремонт</h2>
+        <dl>
+          <dt>Адрес офиса</dt><dd id="c-address"></dd>
+          <dd><a id="c-map" href="#" target="_blank" rel="noopener">Открыть на карте</a></dd>
+          <dt>Часы работы</dt><dd id="c-hours"></dd>
+          <dt>Телефон</dt><dd><a id="c-phone" href="#"></a></dd>
+        </dl>
+      </div>
+      <form id="lead-form" class="reveal" novalidate>
+        <h3>Заявка на расчёт</h3>
+        <label>Ваше имя
+          <input name="name" type="text" autocomplete="name" required>
+        </label>
+        <label>Телефон
+          <input name="phone" type="tel" autocomplete="tel" placeholder="+7 ___ ___-__-__" required>
+        </label>
+        <div class="row2">
+          <label>Тип жилья
+            <select name="object" id="object-select"></select>
+          </label>
+          <label>Площадь, м²
+            <input name="area" id="form-area" type="number" min="1" inputmode="numeric">
+          </label>
+        </div>
+        <label>Вид ремонта
+          <select name="repair" id="form-type"></select>
+        </label>
+        <label>Комментарий
+          <textarea name="comment" placeholder="Что нужно сделать, желаемые сроки"></textarea>
+        </label>
+        <button class="btn btn-main" type="submit" id="submit-btn">Отправить заявку</button>
+        <p class="hint">Мы свяжемся с вами, уточним детали и договоримся о замере.</p>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap" id="footer-text"></div></footer>
+
+<script>
+/* ============================================================
+   НАСТРОЙКИ — меняйте только этот блок под каждого клиента
+   ============================================================ */
+const CONFIG = {
+  name: "Ремонт квартир «Север-Строй»",
+  eyebrow: "Ремонт под ключ · Якутск",
+  tagline: "Ремонт квартир и домов под ключ. Смета до начала работ и договор.",
+  phone: "+7 996 915-84-43",
+  whatsapp: "79969158443",               // цифры с кодом страны, без «+»
+  address: "г. Якутск, ул. Примерная, 1",
+  mapUrl: "https://2gis.ru/yakutsk",
+  hours: "Пн–Сб 09:00–18:00",
+
+  // ФОТО: положите файлы в папку photos рядом с index.html и впишите имена.
+  heroPhoto: "",                          // например "photos/main.jpg"; пусто — декор без фото
+  gallery: [],                            // например { src: "photos/1.jpg", caption: "Двухкомнатная, 54 м²" }
+                                          // первое фото в галерее показывается крупнее остальных
+
+  facts: [
+    { value: "5 лет", label: "работаем в Якутске" },
+    { value: "120+", label: "объектов сдано" },
+    { value: "Договор", label: "и смета до старта" }
+  ],
+
+  typesLead: "Выберите уровень ремонта, а точный объём работ определим на замере.",
+  // from и to — цена за 1 м² в рублях (для калькулятора). Заполните реальными расценками.
+  types: [
+    { name: "Косметический", from: 6000, to: 9000, list: ["Покраска и обои", "Замена напольного покрытия", "Обновление дверей и плинтусов"] },
+    { name: "Капитальный", from: 12000, to: 18000, list: ["Выравнивание стен и полов", "Замена электрики и сантехники", "Чистовая отделка под ключ"] },
+    { name: "Дизайнерский", from: 20000, to: 30000, list: ["Индивидуальный проект", "Сложная отделка и свет", "Авторский надзор"] }
+  ],
+  // Дополнительные опции калькулятора: perM2 — доплата за 1 м². Пустой список [] скроет блок.
+  extras: [
+    { name: "Дизайн-проект", perM2: 1500 },
+    { name: "Вывоз строительного мусора", perM2: 300 }
+  ],
+  calcLead: "Выберите вид ремонта и площадь, и вы получите ориентир по бюджету за работы.",
+  calcNote: "Расчёт примерный и без учёта материалов. Точную смету составим после бесплатного замера.",
+
+  steps: [
+    { title: "Замер", text: "Приезжаем на объект, измеряем и обсуждаем пожелания." },
+    { title: "Смета", text: "Составляем подробную смету по работам и материалам." },
+    { title: "Договор", text: "Фиксируем стоимость, сроки и порядок оплаты." },
+    { title: "Ремонт", text: "Работаем по графику и показываем промежуточные этапы." },
+    { title: "Сдача", text: "Вместе принимаем результат и подписываем акт." }
+  ],
+
+  trust: [
+    { title: "Договор и смета", text: "Все условия фиксируем письменно до начала работ." },
+    { title: "Контроль этапов", text: "Присылаем фото промежуточных этапов, чтобы вы видели ход ремонта." },
+    { title: "Гарантия", text: "Срок гарантии на выполненные работы указываем в договоре." }
+  ],
+  trustNote: "Это шаблон: условия, сроки и гарантии должны соответствовать тому, что компания реально выполняет.",
+
+  objectTypes: ["Квартира в новостройке", "Квартира во вторичке", "Частный дом", "Коммерческое помещение"],
+
+  // Куда отправлять заявки. Вставьте сюда адрес Webhook из n8n (метод POST).
+  // Пока пусто — заявка откроет WhatsApp с готовым текстом.
+  webhookUrl: ""
+};
+/* ============================================================ */
+
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
+const money = (n) => (Math.round(n / 1000) * 1000).toLocaleString("ru-RU") + " ₽";
+const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+document.title = CONFIG.name + " — Якутск";
+$("brand").textContent = CONFIG.name;
+$("eyebrow").textContent = CONFIG.eyebrow;
+$("biz-name").textContent = CONFIG.name;
+$("biz-tagline").textContent = CONFIG.tagline;
+$("wa-link").href = "https://wa.me/" + CONFIG.whatsapp;
+$("types-lead").textContent = CONFIG.typesLead;
+$("calc-lead").textContent = CONFIG.calcLead;
+$("calc-note").textContent = CONFIG.calcNote;
+$("trust-note").textContent = CONFIG.trustNote;
+$("c-address").textContent = CONFIG.address;
+$("c-map").href = CONFIG.mapUrl;
+$("c-hours").textContent = CONFIG.hours;
+$("c-phone").textContent = CONFIG.phone;
+$("c-phone").href = "tel:" + CONFIG.phone.replace(/[^\d+]/g, "");
+$("footer-text").textContent = "© " + new Date().getFullYear() + " " + CONFIG.name;
+
+// шапка: прозрачная вверху, плотная при прокрутке
+const headerEl = $("top");
+const onScroll = () => headerEl.classList.toggle("solid", window.scrollY > 40);
+window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+// фото в первом экране и галерея
+if (CONFIG.heroPhoto) {
+  const h = $("hero"); h.classList.add("has-photo");
+  h.style.background = "linear-gradient(180deg,rgba(22,35,31,.55),rgba(22,35,31,.88)), url('" + encodeURI(CONFIG.heroPhoto) + "') center/cover no-repeat";
+}
+if (CONFIG.gallery.length) {
+  CONFIG.gallery.forEach((g) => {
+    const fig = el("figure"); const img = el("img");
+    img.src = g.src; img.alt = g.caption || "Объект после ремонта"; img.loading = "lazy"; fig.appendChild(img);
+    if (g.caption) fig.appendChild(el("figcaption", "", g.caption));
+    $("gallery").appendChild(fig);
+  });
+  $("raboty").hidden = false;
+}
+
+CONFIG.facts.forEach((f) => { const d = el("div"); d.append(el("b", "", f.value), el("span", "", f.label)); $("facts").appendChild(d); });
+CONFIG.steps.forEach((s) => { const li = el("li"); li.append(el("h3", "", s.title), el("p", "", s.text)); $("steps").appendChild(li); });
+CONFIG.trust.forEach((t) => { const d = el("div"); d.append(el("h3", "", t.title), el("p", "", t.text)); $("trust").appendChild(d); });
+CONFIG.objectTypes.forEach((o) => { const op = el("option", "", o); op.value = o; $("object-select").appendChild(op); });
+
+// виды ремонта, переключатель, список в форме
+let ti = 0;
+CONFIG.types.forEach((t, i) => {
+  const row = el("article", "row reveal");
+  const body = el("div"); body.appendChild(el("h3", "", t.name + " ремонт"));
+  const ul = el("ul"); t.list.forEach((x) => ul.appendChild(el("li", "", x))); body.appendChild(ul);
+  const pr = el("div", "pr"); pr.append(el("small", "", "от"), document.createTextNode(t.from.toLocaleString("ru-RU") + " ₽/м²"));
+  row.append(el("div", "num", "0" + (i + 1)), body, pr);
+  $("types").appendChild(row);
+
+  const b = el("button", "", t.name); b.type = "button"; b.setAttribute("aria-pressed", i === 0);
+  b.addEventListener("click", () => {
+    ti = i;
+    document.querySelectorAll("#seg button").forEach((x, k) => x.setAttribute("aria-pressed", k === i));
+    calc();
+  });
+  $("seg").appendChild(b);
+
+  const o = el("option", "", t.name + " ремонт"); o.value = String(i); $("form-type").appendChild(o);
+});
+
+// дополнительные опции
+CONFIG.extras.forEach((x, i) => {
+  const lab = el("label", "extra"); const cb = el("input"); cb.type = "checkbox"; cb.dataset.i = i;
+  cb.addEventListener("change", calc);
+  lab.append(cb, document.createTextNode(x.name), el("small", "", "+" + x.perM2.toLocaleString("ru-RU") + " ₽/м²"));
+  $("extras").appendChild(lab);
+});
+if (!CONFIG.extras.length) $("extras-box").hidden = true;
+
+// калькулятор с плавной анимацией чисел
+const shown = { a: 0, b: 0 }; let raf;
+function paint() { $("calc-sum").textContent = money(shown.a) + " – " + money(shown.b); }
+function tweenTo(a, b) {
+  cancelAnimationFrame(raf);
+  if (rm) { shown.a = a; shown.b = b; paint(); return; }
+  const s = { a: shown.a, b: shown.b }, t0 = performance.now(), d = 450;
+  (function step(now) {
+    const k = Math.min(1, (now - t0) / d), e = 1 - Math.pow(1 - k, 3);
+    shown.a = s.a + (a - s.a) * e; shown.b = s.b + (b - s.b) * e; paint();
+    if (k < 1) raf = requestAnimationFrame(step);
+  })(t0);
+}
+function selectedExtras() { return [...document.querySelectorAll("#extras input:checked")].map((c) => CONFIG.extras[+c.dataset.i]); }
+function calc() {
+  const t = CONFIG.types[ti], area = +$("calc-area").value;
+  const add = selectedExtras().reduce((s, x) => s + x.perM2, 0);
+  $("area-val").textContent = area;
+  tweenTo(area * (t.from + add), area * (t.to + add));
+  $("form-area").value = area;
+  $("form-type").value = String(ti);
+}
+$("calc-area").addEventListener("input", calc);
+calc();
+
+// появление блоков при прокрутке
+const items = document.querySelectorAll(".reveal");
+if (rm || !("IntersectionObserver" in window)) items.forEach((n) => n.classList.add("in"));
+else {
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
+  items.forEach((n) => io.observe(n));
+}
+
+// отправка заявки
+const form = $("lead-form"), statusBox = $("status"), btn = $("submit-btn");
+const showStatus = (type, text) => { statusBox.className = "status " + type; statusBox.textContent = text; };
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const fd = new FormData(form);
+  const t = CONFIG.types[+fd.get("repair")];
+  const area = +fd.get("area") || 0;
+  const ex = selectedExtras(), add = ex.reduce((s, x) => s + x.perM2, 0);
+  const data = {
+    name: (fd.get("name") || "").trim(), phone: fd.get("phone") || "", object: fd.get("object"),
+    area: area || "", repair: t ? t.name + " ремонт" : "",
+    extras: ex.map((x) => x.name).join(", "),
+    estimate: (t && area) ? money(area * (t.from + add)) + " – " + money(area * (t.to + add)) : "",
+    comment: fd.get("comment") || "", source: location.href, sentAt: new Date().toISOString()
+  };
+  if (!data.name) { showStatus("err", "Укажите имя."); return; }
+  if (data.phone.replace(/\D/g, "").length < 10) { showStatus("err", "Проверьте номер телефона: нужно минимум 10 цифр."); return; }
+
+  btn.disabled = true;
+  try {
+    if (CONFIG.webhookUrl) {
+      const r = await fetch(CONFIG.webhookUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      form.reset(); calc();
+      showStatus("ok", "Заявка отправлена. Мы свяжемся с вами в ближайшее время.");
+    } else {
+      const text = "Здравствуйте! Меня зовут " + data.name + ". Хочу рассчитать ремонт: " + data.repair +
+        ", " + data.object + (data.area ? ", " + data.area + " м²" : "") +
+        (data.extras ? ", дополнительно: " + data.extras : "") +
+        (data.estimate ? " (по калькулятору: " + data.estimate + ")" : "") +
+        ". Телефон: " + data.phone + (data.comment ? ". " + data.comment : "");
+      window.open("https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(text), "_blank");
+      showStatus("ok", "Открываем WhatsApp, чтобы отправить заявку.");
+    }
+  } catch (err) {
+    showStatus("err", "Не удалось отправить заявку. Позвоните нам: " + CONFIG.phone);
+  } finally { btn.disabled = false; }
+});
+</script>
+</body>
+</html>
