@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Оцените визит</title>
+<style>
+:root{--bg:#111114;--card:#1b1b20;--text:#f4f4f6;--muted:#9a9aa5;--line:#2c2c34;--accent:#ffc83d;--btn:#f4f4f6;--btntext:#111114;--star-off:#4a4a55;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f1f1f4;--card:#fff;--text:#16161a;--muted:#6b6b76;--line:#dcdce3;--btn:#16161a;--btntext:#fff;--star-off:#c9c9d2}}
+:root[data-theme="dark"]{--bg:#111114}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;display:flex;justify-content:center;padding:20px 16px}
+.card{width:100%;max-width:420px;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:18px;text-align:center}
+.photo{position:relative;width:100%;aspect-ratio:16/10;border-radius:18px;overflow:hidden;border:2px dashed var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;cursor:pointer;background:var(--bg)}
+.photo.has{border:none}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.photo input{display:none}
+h1{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:16px 0 4px;font-weight:600}
+h2{font-size:20px;margin:0 0 16px}
+.stars{display:flex;justify-content:center;gap:8px;margin-bottom:16px}
+.star{background:none;border:0;padding:2px;cursor:pointer;font-size:42px;line-height:1;color:var(--star-off);transition:transform .15s,color .15s}
+.star.on{color:var(--accent)}
+.star:active{transform:scale(1.2)}
+.panel{display:none;animation:in .25s ease}
+.panel.show{display:block}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+p{margin:0 0 12px;color:var(--muted);font-size:15px;line-height:1.4}
+textarea{width:100%;min-height:110px;resize:vertical;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--text);padding:12px;font:inherit;font-size:15px;margin-bottom:12px}
+.btn{display:block;width:100%;border:0;border-radius:16px;padding:16px;font:inherit;font-weight:700;font-size:15px;background:var(--btn);color:var(--btntext);cursor:pointer;text-decoration:none}
+.btn:disabled{opacity:.5}
+.foot{margin-top:16px;font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="card">
+  <label class="photo" id="photo">
+    <span id="ph">Нажмите, чтобы загрузить фото</span>
+    <input type="file" accept="image/*" id="file">
+  </label>
+  <h1 id="place">Ресторан Виктория</h1>
+  <h2>Как вам сегодняшний визит?</h2>
+  <div class="stars" id="stars"></div>
+
+  <div class="panel" id="low">
+    <p>Спасибо за честность! Напишите, что нам улучшить, чтобы в следующий раз было на 5 звёзд.</p>
+    <textarea id="msg" placeholder="Ваши замечания…"></textarea>
+    <button class="btn" id="send">Отправить лично руководителю</button>
+  </div>
+
+  <div class="panel" id="high">
+    <p>Спасибо за высокую оценку! Будем благодарны за отзыв в 2ГИС 💛</p>
+    <a class="btn" id="gis" href="#" target="_blank" rel="noopener">Написать отзыв в 2ГИС</a>
+  </div>
+
+  <div class="panel" id="done"><p>Спасибо! Ваше сообщение передано руководителю.</p></div>
+  <div class="foot" id="foot">Название заведения · Город</div>
+</div>
+<script>
+/* ===== НАСТРОЙКИ ===== */
+var CONFIG={
+  name:"Ресторан Виктория",
+  city:"Якутск",
+  gisUrl:"https://2gis.ru/yakutsk/search/%D1%80%D0%B5%D1%81%D1%82%D0%BE%D1%80%D0%B0%D0%BD/firm/7037402698857610/tab/reviews?m=129.738134%2C62.032861%2F14.1",   // ссылка на форму отзыва вашей организации в 2ГИС
+  photo:"https://yandex-images.clstorage.net/Tmgl56131/9c2e9dk7p4/9YanzsnpCA0vRQHQgEyaePG0W8R5gyUdvC53VivUgxx-L0SqQ0EM3GTzBjAhJGOu0VblcMZ7vFMJJ9hJvJGkKrHW4p2OogsJJldIzJIPinX891fSK80hUu4kdwUrvLhvCgsugSk9KqAZ6QJmd3YrsZNCik2FebRZPyynXL7R5lTmpqb699FfLjN4Ru27RY5_0dJM-2_ED0a2Oh9nXZeNQwEoFZ0cPT6-AuQ1cFdJKuiOZZlRwmqLRTgspFKa_tlt8Zag2-PsTDAuZFrKjk6ye_vYeuBl2ChArycTWXuXhm8ZIRuXLT4rnx_WAFpGQgfLsE-aZ9xxkXksIbVXn8zRWu2-leLoy34xBFNb77Jxim7q31TkfdwqY6AIAV1Ql7dePio5jDoAF60d5gxKY3U2yKZUgnrgXZx0OC6qUbb52lXaiJf1wvBTKyB0ZtmVQbhS2N1wyHftB0-kAwRZcJKiSQkrHbg8HxyZOtMWSX9eAsW3e79W52SfbTIwuXCIzsZ15pSl4NXvZSQGXEHPqXS6ZMPcQO5A3AB4hyIBYHuEo2oJJSOtMTgJgzTjN39ZQB33iXWvZ_dniE8uK6Zlpvn_S_a0qcPD_kEnE1lA2aNKrnbR6nzNSfwAVJYPJHBdt7BlCSgkoQoSNa4-2Ax7YF899YdRgGvQb5hlPyencYHz7FfopJ7F_PN-JxFXQviHSplZ5PhZ4FvjPFKzBhxkS4y3XS0DJJsjMTiPJeIXT2dRHNGuVpJz_VeJdwMzgma-8fJR1rag49PWazMAf0DIinOxRcjTUPJD_w9ShSQpREqylWgMJgWbDxAArg7XFE94axrPlnGsSuZptVE-I6x3l9vEXcmgv8XXwFIsBnF63ZFWmkrvynPOSu0cSbs9P3ZxmpB8PBMahAEWD7EzyQZYdls22Zd9oEbgaKxcGgaDdYbO3mztgqnm3PdoMCx-WeOTW7RnxNhcz0reOGSSIwlaf7I",                    // URL фото или data:-ссылка (можно загрузить прямо на странице)
+  feedbackEndpoint:""          // куда слать отзывы (Formspree, свой сервер, Telegram-бот и т.п.)
+};
+/* ===================== */
+var $=function(i){return document.getElementById(i)};
+$("place").textContent=CONFIG.name;
+$("foot").textContent=CONFIG.name+" · "+CONFIG.city;
+$("gis").href=CONFIG.gisUrl;
+function setPhoto(src){
+  var p=$("photo");var old=p.querySelector("img");if(old)old.remove();
+  var im=new Image();im.src=src;p.appendChild(im);p.classList.add("has");$("ph").style.display="none";
+}
+if(CONFIG.photo)setPhoto(CONFIG.photo);
+$("file").addEventListener("change",function(e){
+  var f=e.target.files[0];if(!f)return;
+  var r=new FileReader();r.onload=function(){setPhoto(r.result)};r.readAsDataURL(f);
+});
+var rating=0,box=$("stars");
+for(var i=1;i<=5;i++){(function(n){
+  var b=document.createElement("button");b.className="star";b.textContent="★";b.setAttribute("aria-label",n+" из 5");
+  b.onclick=function(){rate(n)};box.appendChild(b);
+})(i)}
+function rate(n){
+  rating=n;
+  [].forEach.call(box.children,function(b,i){b.classList.toggle("on",i<n)});
+  $("done").classList.remove("show");
+  $("low").classList.toggle("show",n<=4);
+  $("high").classList.toggle("show",n===5);
+}
+$("send").onclick=function(){
+  var text=$("msg").value.trim();if(!text)return;
+  $("send").disabled=true;
+  var done=function(){$("low").classList.remove("show");$("done").classList.add("show");box.style.display="none"};
+  if(CONFIG.feedbackEndpoint){
+    fetch(CONFIG.feedbackEndpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({rating:rating,message:text,place:CONFIG.name,time:new Date().toISOString()})})
+      .then(done).catch(done);
+  }else done();
+};
+</script>
+</body>
+</html>
