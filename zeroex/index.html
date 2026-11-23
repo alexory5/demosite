@@ -56,6 +56,16 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(60% 45
 @keyframes iline{to{width:130px}}
 .js .rv{opacity:0;transform:translateY(30px);filter:blur(6px);transition:opacity 1.2s cubic-bezier(.2,.7,.2,1),transform 1.2s cubic-bezier(.2,.7,.2,1),filter 1.2s;transition-delay:var(--d,0s)}
 .js .rv.in{opacity:1;transform:none;filter:none}
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.vcard{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:36px 32px}
+.vcard.gold{border-color:rgba(200,169,106,.55)}
+.vcard .tag{color:var(--gold);font-size:12px;letter-spacing:.28em;text-transform:uppercase;margin-bottom:14px}
+.vcard h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:30px;margin:0 0 14px}
+.vcard p{color:var(--muted);margin:0 0 20px}
+.vcard ul{list-style:none;margin:0;padding:0}
+.vcard li{padding:10px 0;border-top:1px solid var(--line);font-size:15px}
+.vcard li::before{content:"—";color:var(--gold);margin-right:10px}
+@media(max-width:760px){.vgrid{grid-template-columns:1fr}.vcard{padding:28px 22px}}
 @media(prefers-reduced-motion:reduce){.photo img{animation:none}.btn::after{display:none}}
 @media(max-width:760px){.hero{grid-template-columns:1fr;gap:40px;padding-bottom:64px}.steps{grid-template-columns:1fr;gap:28px}section{padding:56px 0}}
 </style>
@@ -88,6 +98,24 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(60% 45
       <div><div class="num">01</div><b>Поднесите телефон</b><p>Достаточно приложить смартфон к стикеру.</p></div>
       <div><div class="num">02</div><b>Откроется страница</b><p>Ссылка, меню, отзыв или соцсети — делаем всё что угодно, пишите, обсудим.</p></div>
       <div><div class="num">03</div><b>Готово</b><p>Клиент сразу на нужной странице, без поиска и ввода адреса.</p></div>
+    </div>
+  </section>
+
+  <section class="variants">
+    <h2>Два варианта работы</h2>
+    <div class="vgrid">
+      <div class="vcard">
+        <div class="tag">Вариант 01</div>
+        <h3>Сразу в 2ГИС</h3>
+        <p>Клиент подносит телефон — и сразу открывается форма отзыва в 2ГИС. Без лишних движений и переходов.</p>
+        <ul><li>Минимум шагов для клиента</li><li>Быстрый способ собрать отзывы</li><li>Вместо 2ГИС можно указать любую другую ссылку</li></ul>
+      </div>
+      <div class="vcard gold">
+        <div class="tag">Вариант 02</div>
+        <h3>Страница с оценкой</h3>
+        <p>Клиент попадает на страницу и ставит оценку. Недовольный клиент пишет напрямую владельцу, и его сообщение не попадает в 2ГИС. Довольный сразу переходит в 2ГИС, чтобы оставить отзыв.</p>
+        <ul><li>Негативные сообщения приходят владельцу лично</li><li>Положительная оценка ведёт прямо в 2ГИС</li><li>Можно добавить Telegram, запись и другие кнопки</li></ul>
+      </div>
     </div>
   </section>
 
@@ -125,10 +153,10 @@ $("videoIn").onchange=function(e){var f=e.target.files[0];if(f)fill("videoSlot",
 (function(){
 var de=document.documentElement;de.classList.add('js');
 var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
-var els=document.querySelectorAll('.eyebrow,h1,.lead,.actions,.photo,h2,.video,.steps>div,.contact p,.contact .btn');
+var els=document.querySelectorAll('.eyebrow,h1,.lead,.actions,.photo,h2,.video,.steps>div,.vcard,.contact p,.contact .btn');
 els.forEach(function(e){e.classList.add('rv')});
 document.querySelectorAll('.hero .rv').forEach(function(e,i){e.style.setProperty('--d',(0.1+i*0.18)+'s')});
-document.querySelectorAll('.steps>div').forEach(function(e,i){e.style.setProperty('--d',(i*0.18)+'s')});
+document.querySelectorAll('.steps>div,.vcard').forEach(function(e,i){e.style.setProperty('--d',(i*0.18)+'s')});
 var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:0.15});
 var intro=$('intro');
 if(rm){intro.remove();els.forEach(function(e){e.classList.add('in')})}
