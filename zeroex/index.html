@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NFC-Стикеры</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@300;400;500&display=swap">
+<style>
+:root{--bg:#0b0b0c;--surface:#141415;--text:#f3efe8;--muted:#8d8a84;--line:#26262a;--gold:#c8a96a;
+color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,"Segoe UI",Arial,sans-serif;font-weight:300;line-height:1.6}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:28px 0;font-size:13px;letter-spacing:.22em;text-transform:uppercase}
+nav a{color:var(--muted);text-decoration:none;letter-spacing:.06em;text-transform:none;font-size:14px}
+.logo{font-weight:500}
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;padding:56px 0 96px}
+.eyebrow{color:var(--gold);font-size:12px;letter-spacing:.3em;text-transform:uppercase;margin-bottom:20px}
+h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:clamp(44px,7vw,84px);line-height:1.02;margin:0 0 24px;letter-spacing:-.01em}
+.lead{color:var(--muted);font-size:17px;max-width:440px;margin:0 0 36px}
+.actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.btn{display:inline-block;background:var(--gold);color:#0b0b0c;padding:16px 34px;border-radius:2px;text-decoration:none;font-weight:500;font-size:14px;letter-spacing:.12em;text-transform:uppercase;transition:opacity .2s}
+.btn:hover{opacity:.85}
+.tel{color:var(--text);text-decoration:none;font-size:16px;border-bottom:1px solid var(--line);padding-bottom:2px}
+.slot{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;letter-spacing:.08em;cursor:pointer;text-align:center;padding:12px}
+.slot input{display:none}
+.slot img,.slot video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+.photo{aspect-ratio:4/5}
+.video{aspect-ratio:16/9}
+.slot.has{border-color:transparent;cursor:default}
+section{padding:80px 0;border-top:1px solid var(--line)}
+h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:clamp(32px,4.5vw,48px);margin:0 0 40px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.num{font-family:"Cormorant Garamond",Georgia,serif;color:var(--gold);font-size:40px}
+.steps p{color:var(--muted);margin:6px 0 0}
+.steps b{font-weight:500;display:block;font-size:18px}
+.contact{text-align:center}
+.contact p{color:var(--muted);margin:0 0 32px}
+footer{padding:32px 0;color:var(--muted);font-size:12px;letter-spacing:.14em;text-align:center;text-transform:uppercase;border-top:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(60% 45% at 85% 0%,rgba(200,169,106,.12),transparent 70%),radial-gradient(50% 40% at 0% 100%,rgba(200,169,106,.06),transparent 70%);pointer-events:none;z-index:-1}
+.btn{position:relative;overflow:hidden;background:linear-gradient(135deg,#dcc287,#b8975a)}
+.btn:hover{opacity:1}
+.btn::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);transition:left .9s}
+.btn:hover::after{left:140%}
+.photo{box-shadow:0 50px 90px -40px rgba(0,0,0,.9)}
+.photo::after{content:"";position:absolute;inset:14px;border:1px solid rgba(200,169,106,.4);border-radius:2px;pointer-events:none;z-index:2}
+.photo img{animation:kb 20s ease-in-out infinite alternate}
+@keyframes kb{to{transform:scale(1.07)}}
+.intro{display:none}
+.js .intro{position:fixed;inset:0;z-index:50;background:#070707;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transition:transform 1.2s cubic-bezier(.77,0,.18,1)}
+.js .intro.out{transform:translateY(-100%)}
+.intro span{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(26px,6vw,42px);letter-spacing:.4em;text-transform:uppercase;opacity:0;animation:iin 1.3s .2s cubic-bezier(.2,.7,.2,1) forwards}
+.intro i{display:block;height:1px;width:0;background:var(--gold);animation:iline 1.4s .5s cubic-bezier(.6,0,.2,1) forwards}
+@keyframes iin{from{opacity:0;transform:translateY(10px);letter-spacing:.8em}to{opacity:1;transform:none;letter-spacing:.4em}}
+@keyframes iline{to{width:130px}}
+.js .rv{opacity:0;transform:translateY(30px);filter:blur(6px);transition:opacity 1.2s cubic-bezier(.2,.7,.2,1),transform 1.2s cubic-bezier(.2,.7,.2,1),filter 1.2s;transition-delay:var(--d,0s)}
+.js .rv.in{opacity:1;transform:none;filter:none}
+@media(prefers-reduced-motion:reduce){.photo img{animation:none}.btn::after{display:none}}
+@media(max-width:760px){.hero{grid-template-columns:1fr;gap:40px;padding-bottom:64px}.steps{grid-template-columns:1fr;gap:28px}section{padding:56px 0}}
+</style>
+</head>
+<body>
+<div class="intro" id="intro"><span>NFC-Стикеры</span><i></i></div>
+<div class="wrap">
+  <nav><span class="logo">NFC</span><a id="telTop" href="#">+7 996 915-84-43</a></nav>
+
+  <header class="hero">
+    <div>
+      <div class="eyebrow">Одно касание</div>
+      <h1>NFC-Стикеры</h1>
+      <p class="lead">Поднесите телефон — и нужная страница откроется сразу. Без приложений и лишних шагов.</p>
+      <div class="actions">
+        <a class="btn" id="wa1" href="#" target="_blank" rel="noopener">Написать</a>
+        <a class="tel" id="tel" href="#">+7 996 915-84-43</a>
+      </div>
+    </div>
+    <label class="slot photo" id="photoSlot"><span>Нажмите, чтобы добавить фото</span><input type="file" accept="image/*" id="photoIn"></label>
+  </header>
+
+  <section id="video">
+    <h2>Как это работает</h2>
+    <label class="slot video" id="videoSlot"><span>Нажмите, чтобы добавить видео</span><input type="file" accept="video/*" id="videoIn"></label>
+  </section>
+
+  <section>
+    <div class="steps">
+      <div><div class="num">01</div><b>Поднесите телефон</b><p>Достаточно приложить смартфон к стикеру.</p></div>
+      <div><div class="num">02</div><b>Откроется страница</b><p>Ссылка, меню, отзыв или соцсети — делаем всё что угодно, пишите, обсудим.</p></div>
+      <div><div class="num">03</div><b>Готово</b><p>Клиент сразу на нужной странице, без поиска и ввода адреса.</p></div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <h2>Закажите стикеры</h2>
+    <p>Напишите нам в WhatsApp — ответим и подберём решение.</p>
+    <a class="btn" id="wa2" href="#" target="_blank" rel="noopener">Написать</a>
+  </section>
+  <footer>NFC-Стикеры · +7 996 915-84-43</footer>
+</div>
+<script>
+/* ===== НАСТРОЙКИ ===== */
+var CONFIG={
+  phone:"79969158443",
+  message:"Здравствуйте! Интересуют NFC-стикеры.",
+  photo:"",   // путь или URL фото, например "photo.jpg"
+  video:""    // путь или URL видео, например "video.mp4"
+};
+/* ===================== */
+var $=function(i){return document.getElementById(i)};
+var wa="https://wa.me/"+CONFIG.phone+"?text="+encodeURIComponent(CONFIG.message);
+$("wa1").href=wa;$("wa2").href=wa;
+$("tel").href=$("telTop").href="tel:+"+CONFIG.phone;
+function fill(slotId,tag,src){
+  var s=$(slotId);var old=s.querySelector(tag);if(old)old.remove();
+  var el=document.createElement(tag);el.src=src;
+  if(tag==="video"){el.controls=true;el.playsInline=true;el.preload="metadata"}
+  s.appendChild(el);s.classList.add("has");s.querySelector("span").style.display="none";
+  if(tag==="video")s.addEventListener("click",function(e){e.preventDefault()});
+}
+if(CONFIG.photo)fill("photoSlot","img",CONFIG.photo);
+if(CONFIG.video)fill("videoSlot","video",CONFIG.video);
+$("photoIn").onchange=function(e){var f=e.target.files[0];if(f)fill("photoSlot","img",URL.createObjectURL(f))};
+$("videoIn").onchange=function(e){var f=e.target.files[0];if(f)fill("videoSlot","video",URL.createObjectURL(f))};
+(function(){
+var de=document.documentElement;de.classList.add('js');
+var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var els=document.querySelectorAll('.eyebrow,h1,.lead,.actions,.photo,h2,.video,.steps>div,.contact p,.contact .btn');
+els.forEach(function(e){e.classList.add('rv')});
+document.querySelectorAll('.hero .rv').forEach(function(e,i){e.style.setProperty('--d',(0.1+i*0.18)+'s')});
+document.querySelectorAll('.steps>div').forEach(function(e,i){e.style.setProperty('--d',(i*0.18)+'s')});
+var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:0.15});
+var intro=$('intro');
+if(rm){intro.remove();els.forEach(function(e){e.classList.add('in')})}
+else{setTimeout(function(){intro.classList.add('out');els.forEach(function(e){io.observe(e)});setTimeout(function(){intro.remove()},1400)},2000)}
+})();
+</script>
+</body>
+</html>
