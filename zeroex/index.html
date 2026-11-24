@@ -66,6 +66,11 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(60% 45
 .vcard li{padding:10px 0;border-top:1px solid var(--line);font-size:15px}
 .vcard li::before{content:"—";color:var(--gold);margin-right:10px}
 @media(max-width:760px){.vgrid{grid-template-columns:1fr}.vcard{padding:28px 22px}}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.pgrid .vcard{display:flex;flex-direction:column}
+.pgrid .vcard p{flex:1}
+.pw{align-self:flex-start;color:var(--gold);text-decoration:none;font-size:13px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid rgba(200,169,106,.4);padding-bottom:3px}
+@media(max-width:760px){.pgrid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.photo img{animation:none}.btn::after{display:none}}
 @media(max-width:760px){.hero{grid-template-columns:1fr;gap:40px;padding-bottom:64px}.steps{grid-template-columns:1fr;gap:28px}section{padding:56px 0}}
 </style>
@@ -73,7 +78,7 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(60% 45
 <body>
 <div class="intro" id="intro"><span>NFC-Стикеры</span><i></i></div>
 <div class="wrap">
-  <nav><span class="logo">ZEROEX NFC</span><a id="telTop" href="#">+7 996 915-84-43</a></nav>
+  <nav><span class="logo">NFC</span><a id="telTop" href="#">+7 996 915-84-43</a></nav>
 
   <header class="hero">
     <div>
@@ -98,6 +103,30 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(60% 45
       <div><div class="num">01</div><b>Поднесите телефон</b><p>Достаточно приложить смартфон к стикеру.</p></div>
       <div><div class="num">02</div><b>Откроется страница</b><p>Ссылка, меню, отзыв или соцсети — делаем всё что угодно, пишите, обсудим.</p></div>
       <div><div class="num">03</div><b>Готово</b><p>Клиент сразу на нужной странице, без поиска и ввода адреса.</p></div>
+    </div>
+  </section>
+
+  <section class="products">
+    <h2>Варианты продукта</h2>
+    <div class="pgrid">
+      <div class="vcard">
+        <div class="tag">Для заведений</div>
+        <h3>NFC-Стикер</h3>
+        <p>Подносите телефон к стикеру — и сразу открывается нужная ссылка: отзыв в 2ГИС, сайт или соцсети.</p>
+        <a class="pw" href="#" data-m="Здравствуйте! Интересует NFC-Стикер.">Узнать подробнее</a>
+      </div>
+      <div class="vcard">
+        <div class="tag">Для кафе и ресторанов</div>
+        <h3>NFC-Меню</h3>
+        <p>Клиенту нужно только коснуться — и меню сразу открывается на его телефоне. Без приложений и бумажных меню.</p>
+        <a class="pw" href="#" data-m="Здравствуйте! Интересует NFC-Меню.">Узнать подробнее</a>
+      </div>
+      <div class="vcard gold">
+        <div class="tag">Для мастеров</div>
+        <h3>NFC-Визитки</h3>
+        <p>Бесконечная визитка: одно касание — и у вашего клиента сразу открывается ваш сайт. Больше не нужно печатать новые карточки.</p>
+        <a class="pw" href="#" data-m="Здравствуйте! Интересуют NFC-Визитки.">Узнать подробнее</a>
+      </div>
     </div>
   </section>
 
@@ -138,6 +167,7 @@ var CONFIG={
 var $=function(i){return document.getElementById(i)};
 var wa="https://wa.me/"+CONFIG.phone+"?text="+encodeURIComponent(CONFIG.message);
 $("wa1").href=wa;$("wa2").href=wa;
+document.querySelectorAll('.pw').forEach(function(a){a.href="https://wa.me/"+CONFIG.phone+"?text="+encodeURIComponent(a.dataset.m);a.target="_blank";a.rel="noopener"});
 $("tel").href=$("telTop").href="tel:+"+CONFIG.phone;
 function fill(slotId,tag,src){
   var s=$(slotId);var old=s.querySelector(tag);if(old)old.remove();
